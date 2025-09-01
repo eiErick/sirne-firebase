@@ -22,5 +22,19 @@
     "typeCheckHostBindings": true,
     "strictTemplates": true
   },
-  "files": []
+  "files": [],
+  "references": [
+    {
+      "path": "./projects/sirne/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/sirne/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/maraskin/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/maraskin/tsconfig.spec.json"
+    }
+  ]
 }
