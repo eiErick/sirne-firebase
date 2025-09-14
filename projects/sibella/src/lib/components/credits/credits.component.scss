@@ -1,0 +1,18 @@
+:host {
+    transition: .4s;
+    color: var(--text-color);
+    padding: 1rem;
+    background-color: var(--bg-color-300);
+    border-radius: var(--radius-10);
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    flex-direction: column;
+    border: .1rem solid var(--border-color-10);
+    box-shadow: .1rem .1rem 1rem .05rem var(--shadow-color);
+
+    .label {
+        margin: .5rem;
+        font-weight: 600;
+    }
+}

@@ -1,0 +1,11 @@
+:host {
+    display: flex;
+    justify-content: center;
+}
+
+span {
+    color: var(--text-color);
+    font-size: .8rem;
+    text-align: center;
+    font-weight: 500;
+}

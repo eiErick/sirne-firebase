@@ -1,0 +1,81 @@
+<span class="day">{{ menu().day | dayTranslatePipe }}</span>
+
+<div class="snack">
+  <span class="snack__description">MERENDA</span>
+  @for (snack of menu().snacks; track $index) {
+    <div class="snack__selector">
+      @if ($index !== 0) {
+        <mat-form-field appearance="outline" class="snack__selector__field">
+          <mat-label>Merenda selecionada</mat-label>
+          <mat-select [(ngModel)]="menu().snacks[$index].id" class="snack__selector__field__select" (ngModelChange)="changeMenu($index, $event, 'snack')">
+            @for (snack of snacks(); track $index) {
+              <mat-option [value]="snack.id">{{ snack.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <div class="snack__selector__container-delete-btn" (click)="removeMealToMenu($index, 'snack')">
+          <span class="material-symbols-outlined">close</span>
+        </div>
+      } @else {
+        <mat-form-field appearance="outline" class="snack__selector__field">
+          <mat-label>Merenda selecionada</mat-label>
+          <mat-select [(ngModel)]="menu().snacks[$index].id" class="snack__selector__field__select" (ngModelChange)="changeMenu($index, $event, 'snack')">
+            @for (snack of snacks(); track $index) {
+              <mat-option [value]="snack.id">{{ snack.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      }
+    </div>
+  }
+
+  <div class="container-add-btn">
+    <button matMiniFab class="container-add-btn__button" (click)="addMealToMenu('snack')">
+      <span class="material-symbols-outlined icon">add</span>
+    </button>
+  </div>
+</div>
+
+<div class="lunch">
+  <span class="lunch__description">ALMOÇO</span>
+  @for (lunch of menu().lunches; track $index) {
+    <div class="lunch__selector">
+      @if ($index !== 0) {
+        <mat-form-field appearance="outline" class="snack__selector__field">
+          <mat-label>Almoço selecionado</mat-label>
+          <mat-select [(ngModel)]="menu().lunches[$index].id" class="snack__selector__field__select" (ngModelChange)="changeMenu($index, $event, 'lunch')">
+            @for (lunch of lunches(); track $index) {
+              <mat-option [value]="lunch.id">{{ lunch.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <div class="lunch__selector__container-delete-btn" (click)="removeMealToMenu($index, 'lunch')">
+          <span class="material-symbols-outlined">close</span>
+        </div>
+      } @else {
+        <mat-form-field appearance="outline" class="snack__selector__field">
+          <mat-label>Almoço selecionado</mat-label>
+          <mat-select [(ngModel)]="menu().lunches[$index].id" class="snack__selector__field__select" (ngModelChange)="changeMenu($index, $event, 'lunch')">
+            @for (lunch of lunches(); track $index) {
+              <mat-option [value]="lunch.id">{{ lunch.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      }
+    </div>
+  }
+
+  <div class="container-add-btn">
+    <button matMiniFab class="container-add-btn__button" (click)="addMealToMenu('lunch')">
+      <span class="material-symbols-outlined icon">add</span>
+    </button>
+  </div>
+</div>
+
+<div class="btns">
+  <span class="material-symbols-outlined" (click)="openNutritionalInfoDialog()">info</span>
+</div>
+
+<div class="status-container">
+</div>

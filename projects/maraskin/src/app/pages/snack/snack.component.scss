@@ -1,0 +1,123 @@
+:host {
+    overflow: hidden;
+    background: var(--primary-color);
+    height: 100%;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.header {
+    background-color: var(--primary-color);
+    width: 100%;
+    display: flex;
+    padding: .5rem;
+    min-height: 2.5rem;
+
+    &__center {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        .title {
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+    }
+}
+
+.container {
+    // overflow: none;
+    // padding-bottom: 100%;
+    background-color: var(--bg-color);
+    border-radius: var(--radius-30) var(--radius-30) 0 0;
+    height: calc(100% - 2.5rem);
+    display: flex;
+    flex-direction: column;
+    // width: 100%;
+    // padding: 2rem 0 2rem 0;
+    // padding-top: 5rem;
+    // justify-content: center;
+    // align-items: start;
+    // flex-wrap: wrap;
+    // gap: 20px;
+    width: 100%;
+    border-radius: var(--radius-10) var(--radius-10) 0 0;
+    // padding-bottom: 4rem;
+
+    &__actions {
+        // width: 100%;
+        margin: .8rem .8rem 0 .8rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        
+        .search {
+            padding: 0 1rem;
+            width: 100%;
+            border-radius: var(--radius-08);
+            outline: none;
+            border: 1px solid var(--border-color-10);
+            min-height: 3rem;
+        }
+        
+        .add-snack {
+            display: flex;
+            height: 3rem;
+            width: 3rem;
+            align-items: center;
+            justify-content: center;
+            // position: fixed;
+            // top: 100%;
+            // left: 100%;
+            // transform: translate(-120%, -120%);
+            box-shadow: none !important;
+            // height: 3rem;
+            border-radius: var(--radius-10);
+
+            .icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+
+    &__snacks {
+        // width: 100%;
+        margin: .8rem;
+        overflow: auto;
+        // padding-bottom: 100%;
+        flex-grow: 1;
+        height: 100%;
+
+        &__snack {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: .5rem;
+            border-bottom: 1px solid var(--border-color-10);
+
+            .name {
+                font-size: 1.2rem;
+            }
+
+            &__actions {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: .5rem;
+
+                .edit,
+                .delete {
+                    font-size: 1.65rem;
+                }
+            }
+        }
+
+        // margin-bottom: ;
+    }
+}

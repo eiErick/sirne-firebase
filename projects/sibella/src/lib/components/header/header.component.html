@@ -1,0 +1,15 @@
+<header class="header">
+  <div class="header__left">
+    @if (activeBack()) {
+      <span class="material-symbols-outlined back" (click)="onBack()">arrow_back_ios</span>
+    }
+  </div>
+  <div class="header__center">
+    <span class="title" (click)="kiam()">{{ title() }}</span>
+  </div>
+  <div class="header__right">
+    @if (activeIcon()) {
+      <img [src]="icon()" alt="icon" class="icon" (click)="openSettings()">
+    }
+  </div>
+</header>

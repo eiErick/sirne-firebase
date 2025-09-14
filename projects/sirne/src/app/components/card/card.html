@@ -1,0 +1,31 @@
+<span (click)="openNutritionalInfoDialog()" class="day" [class]="{'today': today}">{{ menu().day | dayTranslatePipe }}</span>
+
+<div class="snack">
+  <span class="description">MERENDA</span>
+  <div class="snacks">
+    @for (snack of menu().snacks; track $index) {
+      <span class="name">{{ snack.name }}</span>
+      @if ($index !== menu().snacks.length - 1) {
+        <span>+</span>
+      }
+    }
+  </div>
+</div>
+
+<div class="lunch">
+  <span class="description">ALMOÇO</span>
+  <div class="lunches">
+    @for (lunch of menu().lunches; track $index) {
+      <span class="name">{{ lunch.name }}</span>
+
+      @if ($index !== menu().lunches.length - 1) {
+        <span>+</span>
+      }
+    }
+  </div>
+</div>
+
+<div class="btns">
+  <!-- <span class="material-symbols-outlined" (click)="openAssessmentDialog(menu())">thumb_up</span> -->
+  <span class="material-symbols-outlined" (click)="openNutritionalInfoDialog()">info</span>
+</div>

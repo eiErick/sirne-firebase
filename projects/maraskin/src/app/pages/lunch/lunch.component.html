@@ -1,0 +1,22 @@
+<lib-header title="Maraskin" (settings)="openSettings()" />
+
+<div class="container">
+  <div class="container__actions">
+      <input placeholder="Pesquisar" class="search" type="search" (input)="search()" [(ngModel)]="searchTerm" />
+        <button (click)="openCreateLunch()" class="add-lunch" matMiniFab>
+      <span class="material-symbols-outlined icon">add</span>
+    </button>
+  </div>
+
+  <div class="container__lunches">
+    @for (lunch of lunches; track $index) {
+      <div class="container__lunches__lunch">
+        <span class="name">{{ lunch.name }}</span>
+        <div class="container__lunches__lunch__actions">
+          <span class="material-symbols-outlined edit" (click)="openEditLunch(lunch)">edit</span>
+          <span class="material-symbols-outlined delete" (click)="presentDeleteConfirm(lunch)">delete</span>
+        </div>
+      </div>
+    }
+  </div>
+</div>

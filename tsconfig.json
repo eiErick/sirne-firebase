@@ -11,9 +11,22 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "experimentalDecorators": true,
+    "paths": {
+      "cerebellum": [
+        "./dist/cerebellum"
+      ],
+      "sibella": [
+        "./dist/sibella"
+      ]
+    },
     "importHelpers": true,
     "target": "ES2022",
-    "module": "preserve"
+    // "module": "preserve",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -35,6 +48,18 @@
     },
     {
       "path": "./projects/maraskin/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/sibella/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/sibella/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/cerebellum/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/cerebellum/tsconfig.spec.json"
     }
   ]
 }

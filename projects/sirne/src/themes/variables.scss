@@ -1,0 +1,17 @@
+:root {
+    --primary-color: #FF6600;
+    --pg-color-100: #ffe6d5;
+    --pg-color-300: #ffccaa;
+    --pg-color-500: #ff9966;
+    --pg-color-700: #ff8533;
+    --pg-color-900: #ff6600;
+}
+
+:root.app-dark {
+    --primary-color: #FF6600;
+    --pg-color-100: #1a0a00;
+    --pg-color-300: #331a00;
+    --pg-color-500: #994d00;
+    --pg-color-700: #cc5c00;
+    --pg-color-900: #ff6600;
+}

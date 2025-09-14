@@ -1,0 +1,19 @@
+// For information on how to create your own theme, please see:
+
+:root {
+    --primary-color: #423671;
+    --pg-color-100: #E7E4F2;
+    --pg-color-300: #C2BDE1;
+    --pg-color-500: #9B94B0;
+    --pg-color-700: #6D65AA;
+    --pg-color-900: #423671;
+}
+
+:root.app-dark {
+    --primary-color: #7662DA;
+    --pg-color-100: #EDEAFD;
+    --pg-color-300: #C8C1F3;
+    --pg-color-500: #A095E6;
+    --pg-color-700: #8975E0;
+    --pg-color-900: #7662DA;
+}

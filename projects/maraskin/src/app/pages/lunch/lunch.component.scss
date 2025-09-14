@@ -1,0 +1,103 @@
+:host {
+    overflow: hidden;
+    background: var(--primary-color);
+    height: 100%;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.header {
+    background-color: var(--primary-color);
+    width: 100%;
+    display: flex;
+    padding: .5rem;
+    min-height: 2.5rem;
+
+    &__center {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        .title {
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+    }
+}
+
+.container {
+    background-color: var(--bg-color);
+    border-radius: var(--radius-30) var(--radius-30) 0 0;
+    height: calc(100% - 2.5rem);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: var(--radius-10) var(--radius-10) 0 0;
+
+    &__actions {
+        margin: .8rem .8rem 0 .8rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        
+        .search {
+            padding: 0 1rem;
+            width: 100%;
+            border-radius: var(--radius-08);
+            outline: none;
+            border: 1px solid var(--border-color-10);
+            min-height: 3rem;
+        }
+        
+        .add-lunch {
+            display: flex;
+            height: 3rem;
+            width: 3rem;
+            align-items: center;
+            justify-content: center;
+            box-shadow: none !important;
+            border-radius: var(--radius-10);
+
+            .icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+
+    &__lunches {
+        margin: .8rem;
+        overflow: auto;
+        flex-grow: 1;
+        height: 100%;
+
+        &__lunch {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: .5rem;
+            border-bottom: 1px solid var(--border-color-10);
+
+            .name {
+                font-size: 1.2rem;
+            }
+
+            &__actions {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: .5rem;
+
+                .edit,
+                .delete {
+                    font-size: 1.65rem;
+                }
+            }
+        }
+    }
+}

@@ -1,1 +1,57 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+// @use './themes/mat-theme.scss' as my-theme;
+@use '../../../shared/index.scss' as *;
+
+html {
+    // @include mat.theme((color: (primary: my-theme.$primary-palette,
+    //             tertiary: my-theme.$tertiary-palette,
+    //         ),
+    //         typography: "Poppins",
+    //         density: 0,
+    //     ));
+
+    height: 100%;
+}
+
+:root {
+    color-scheme: light;
+}
+
+:root.app-dark {
+    color-scheme: dark;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family: "Poppins", sans-serif;
+}
+
+*:focus {
+    outline: none;
+}
+
+body {
+    background-color: var(--mat-sys-surface);
+    color: var(--mat-sys-on-surface);
+    font: var(--mat-sys-body-medium);
+
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+
+    margin: 0;
+    height: 100%;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}

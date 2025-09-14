@@ -27,10 +27,20 @@
               {
                 "glob": "**/*",
                 "input": "projects/sirne/public"
+              },
+              {
+                "glob": "**/*",
+                "input": "shared/icons"
+              },
+              {
+                "glob": "**/*",
+                "input": "shared/sounds",
+                "output": "assets/sounds"
               }
             ],
             "styles": [
-              "projects/sirne/src/styles.scss"
+              "projects/sirne/src/styles.scss",
+              "projects/sirne/src/themes/variables.scss"
             ]
           },
           "configurations": {
@@ -118,10 +128,20 @@
               {
                 "glob": "**/*",
                 "input": "projects/maraskin/public"
+              },
+              {
+                "glob": "**/*",
+                "input": "shared/icons"
+              },
+              {
+                "glob": "**/*",
+                "input": "shared/sounds",
+                "output": "assets/sounds"
               }
             ],
             "styles": [
-              "projects/maraskin/src/styles.scss"
+              "projects/maraskin/src/styles.scss",
+              "projects/maraskin/src/themes/variables.scss"
             ]
           },
           "configurations": {
@@ -129,8 +149,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "2MB",
+                  "maximumError": "2MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -180,6 +200,66 @@
             ],
             "styles": [
               "projects/maraskin/src/styles.scss"
+            ]
+          }
+        }
+      }
+    },
+    "sibella": {
+      "projectType": "library",
+      "root": "projects/sibella",
+      "sourceRoot": "projects/sibella/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/sibella/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/sibella/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/sibella/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "cerebellum": {
+      "projectType": "library",
+      "root": "projects/cerebellum",
+      "sourceRoot": "projects/cerebellum/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/cerebellum/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/cerebellum/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/cerebellum/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
             ]
           }
         }

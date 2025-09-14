@@ -1,0 +1,55 @@
+<lib-header title="Maraskin" (settings)="openSettings()" />
+<div class="container">
+  <!-- <ion-searchbar
+    [(ngModel)]="searchTerm"
+    [debounce]="300"
+    (ionInput)="search()"
+    placeholder="Pesquisar"
+  /> -->
+
+  <div class="container__actions">
+      <input placeholder="Pesquisar" class="search" type="search" (input)="search()" [(ngModel)]="searchTerm" />
+        <button (click)="openCreateSnack()" class="add-snack" matMiniFab>
+      <span class="material-symbols-outlined icon">add</span>
+    </button>
+  </div>
+
+  <div class="container__snacks">
+    @for (snack of snacks; track $index) {
+      <div class="container__snacks__snack">
+        <span class="name">{{ snack.name }}</span>
+        <div class="container__snacks__snack__actions">
+          <span class="material-symbols-outlined edit" (click)="openEditSnack(snack)">edit</span>
+          <span class="material-symbols-outlined delete" (click)="presentDeleteConfirm(snack)">delete</span>
+        </div>
+      </div>
+    }
+  </div>
+  <!-- <div class="scrollable-list">
+    <ion-list [inset]="true">
+      @for (snack of filtredSnacks; track $index) {
+      <ion-item class="ion-no-padding no-padding-end">
+        <div class="snack">
+          <span class="name">{{ snack.name }}</span>
+          <div class="actions">
+            <span
+              class="material-symbols-outlined"
+              id="open-modal"
+              expand="block"
+              (click)="openEditSnack(snack)"
+              >edit</span
+            >
+            <span class="material-symbols-outlined" (click)="presentDeleteConfirm(snack)"
+              >delete</span
+            >
+          </div>
+        </div>
+      </ion-item>
+      } @empty { @if (searchTerm !== '') {
+      <span class="empty">Nenhum almoço encontrado :/</span>
+      } }
+    </ion-list>
+  </div> -->
+  <!-- <button class="add-snack" (click)="openCreateSnack()">
+  </button> -->
+</div>

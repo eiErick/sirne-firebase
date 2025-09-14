@@ -1,0 +1,9 @@
+<lib-header [title]="'CONFIGURAÇÕES'" [activeIcon]="false" [activeBack]="true" [activeKiam]="false" (back)="back()" />
+
+<div class="container">
+    <lib-avatar [icon]="auth.icon" [name]="auth.name" (avatar)="openAvatar()" />
+    <lib-theme [value]="isDarkMode" (change)="toggleTheme($event)" />
+    <lib-schedule />
+    <lib-credits />
+    <lib-sigla />
+</div>

@@ -1,0 +1,34 @@
+<mat-nav-list>
+  <div class="container">
+    <div class="container__header">
+      <span class="material-symbols-outlined close" (click)="close()">close</span>
+      <span class="title">ADICIONAR REFEIÇÃO</span>
+      <span class="material-symbols-outlined confirm" (click)="confirm()">check</span>
+    </div>
+
+    <mat-form-field class="container__field" appearance="outline">
+      <mat-label>Nome da refeição</mat-label>
+      <input matInput type="text" [(ngModel)]="mealSel.name" />
+    </mat-form-field>
+
+    <mat-form-field class="container__field" appearance="outline">
+      <mat-label>Calorias</mat-label>
+      <input matInput type="number" min="0" [(ngModel)]="mealSel.calories" />
+    </mat-form-field>
+
+    <div class="toggle-flex">
+      <span>Lactose</span>
+      <mat-slide-toggle class="end" [(ngModel)]="mealSel.lactose"></mat-slide-toggle>
+    </div>
+
+    <div class="toggle-flex">
+      <span>Açúcar</span>
+      <mat-slide-toggle class="end" [(ngModel)]="mealSel.glucose"></mat-slide-toggle>
+    </div>
+
+    <div class="toggle-flex">
+      <span>Glúten</span>
+      <mat-slide-toggle class="end" [(ngModel)]="mealSel.gluten"></mat-slide-toggle>
+    </div>
+  </div>
+</mat-nav-list>

@@ -1,0 +1,3 @@
+@for (option of options; track $index) {
+  <span (click)="toggleOption(option)" [ngClass]="{'selected': option.check}">{{ option.name }}</span>
+}

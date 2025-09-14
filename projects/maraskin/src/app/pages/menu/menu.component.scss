@@ -1,0 +1,40 @@
+:host {
+    overflow: hidden;
+    background: var(--primary-color);
+    height: 100%;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.container {
+    overflow: auto;
+    background-color: var(--bg-color);
+    border-radius: var(--radius-30) var(--radius-30) 0 0;
+    height: 100%;
+    width: 100%;
+    padding: 2rem 0 2rem 0;
+    // padding-bottom: 7rem;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    border-radius: var(--radius-10) var(--radius-10) 0 0;
+
+    .error {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+}
+
+.snack {
+    height: calc(100vh - 48px);
+}
+
+.container__navigate {
+    position: fixed;
+    bottom: 1rem;
+    background: var(--bg-color-300);
+}

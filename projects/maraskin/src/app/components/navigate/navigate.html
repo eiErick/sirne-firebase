@@ -1,0 +1,14 @@
+<div class="navigate">
+  <div class="navigate__item" [ngClass]="{'selected': navigate() == 'menu'}" (click)="browse('menu')">
+    <span class="material-symbols-outlined icon">chef_hat</span>
+    <span class="name">Cardápio</span>
+  </div>
+  <div class="navigate__item" [ngClass]="{'selected': navigate() == 'snack'}" (click)="browse('snack')">
+    <span class="material-symbols-outlined icon">fastfood</span>
+    <span class="name">Merenda</span>
+  </div>
+  <div class="navigate__item" [ngClass]="{'selected': navigate() == 'lunch'}" (click)="browse('lunch')">
+    <span class="material-symbols-outlined icon">dinner_dining</span>
+    <span class="name">Almoço</span>
+  </div>
+</div>

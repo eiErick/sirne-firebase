@@ -1,0 +1,43 @@
+.header {
+    background-color: var(--primary-color);
+    width: 100%;
+    display: flex;
+    padding: .5rem;
+    min-height: 2.5rem;
+    min-height: 3rem;
+
+    &__left {
+        width: 2rem;
+        display: flex;
+        align-items: center;
+
+        .back {
+            color: #ffffff;
+        }
+    }
+
+    &__center {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .title {
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+    }
+
+    &__right {
+        width: 2rem;
+        display: flex;
+        align-items: center;
+
+        .icon {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 1rem;
+        }
+    }
+}
