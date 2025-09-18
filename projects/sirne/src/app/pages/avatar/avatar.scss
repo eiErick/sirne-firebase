@@ -1,0 +1,45 @@
+:host {
+    overflow: hidden;
+    background: var(--primary-color);
+    height: 100%;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.container {
+    overflow: auto;
+    padding: 1rem;
+    height: 100%;
+    background: var(--bg-color);
+    border-radius: var(--radius-10) var(--radius-10) 0 0;
+
+    &__icons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        margin: 0 0 1rem 0;
+        transition: .2s;
+
+        img {
+            width: 30%;
+            height: auto;
+            margin-bottom: 1rem;
+            border-radius: 100rem;
+        }
+
+        .select {
+            border: .2rem solid var(--primary-color);
+            padding: .4rem;
+        }
+    }
+
+    .icon-credit {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        font-size: .8rem;
+        position: fixed;
+        bottom: 0;
+    }
+}

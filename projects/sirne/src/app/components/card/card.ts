@@ -29,7 +29,7 @@ export class Card implements OnInit {
     const today = new Date();
     const dayWeek = today.getDay() - 1;
 
-    const days = ['segunda', 'terça', 'quarta', 'quinta', 'sexta'];
+    const days = ['mon', 'tue', 'wed', 'thu', 'fri'];
     this.today = days[dayWeek] === this.menu().day;
   }
 }

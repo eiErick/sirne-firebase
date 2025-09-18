@@ -4,7 +4,7 @@
   <span class="description">MERENDA</span>
   <div class="snacks">
     @for (snack of menu().snacks; track $index) {
-      <span class="name">{{ snack.name }}</span>
+      <span class="name"> {{ snack.name }} </span>
       @if ($index !== menu().snacks.length - 1) {
         <span>+</span>
       }

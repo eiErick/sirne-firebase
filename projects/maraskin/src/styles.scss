@@ -10,6 +10,10 @@ html {
       density: 0,
     ));
 
+  @include mat.dialog-overrides((
+    container-color: var(--bg-color-300),
+  ));
+
   height: 100%;
 }
 

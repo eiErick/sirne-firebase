@@ -1,57 +1,61 @@
 @use '@angular/material' as mat;
-// @use './themes/mat-theme.scss' as my-theme;
+@use './themes/mat-theme.scss' as my-theme;
 @use '../../../shared/index.scss' as *;
 
 html {
-    // @include mat.theme((color: (primary: my-theme.$primary-palette,
-    //             tertiary: my-theme.$tertiary-palette,
-    //         ),
-    //         typography: "Poppins",
-    //         density: 0,
-    //     ));
+  @include mat.theme((color: (primary: my-theme.$primary-palette,
+        tertiary: my-theme.$tertiary-palette,
+      ),
+      typography: "Poppins",
+      density: 0,
+    ));
 
-    height: 100%;
+  @include mat.dialog-overrides((
+    container-color: var(--bg-color-300),
+  ));
+
+  height: 100%;
 }
 
 :root {
-    color-scheme: light;
+  color-scheme: light;
 }
 
 :root.app-dark {
-    color-scheme: dark;
+  color-scheme: dark;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-size: 16px;
-    font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
 }
 
 *:focus {
-    outline: none;
+  outline: none;
 }
 
 body {
-    background-color: var(--mat-sys-surface);
-    color: var(--mat-sys-on-surface);
-    font: var(--mat-sys-body-medium);
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
 
-    user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 
-    margin: 0;
-    height: 100%;
+  margin: 0;
+  height: 100%;
 }
 
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 input[type=number] {
-    -moz-appearance: textfield;
+  -moz-appearance: textfield;
 }

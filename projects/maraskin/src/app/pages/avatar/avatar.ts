@@ -1,7 +1,8 @@
-import { Component, computed } from '@angular/core';
+import { Component, computed, OnDestroy, OnInit } from '@angular/core';
 import { HeaderComponent } from "sibella";
 import { CommonModule, Location } from '@angular/common';
 import { SettingsService } from 'cerebellum';
+import { App } from '@capacitor/app';
 
 @Component({
   selector: 'app-avatar',
@@ -12,13 +13,30 @@ import { SettingsService } from 'cerebellum';
   templateUrl: './avatar.html',
   styleUrl: './avatar.scss'
 })
-export class Avatar {
+export class Avatar implements OnInit, OnDestroy {
   public auth = computed(() => this.settingsService.auth());
+  private backButtonListener: any;
 
   constructor(
     private location: Location,
     private settingsService: SettingsService
   ) { }
+
+  ngOnInit() {
+    this.backButtonListener = App.addListener('backButton', (event: { canGoBack: boolean }) => {
+      if (event.canGoBack) {
+        window.history.back();
+      } else {
+        if (confirm('Deseja realmente sair do app?')) {
+          App.exitApp();
+        }
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.backButtonListener.remove();
+  }
 
   public back() {
     this.location.back();

@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Auth } from 'cerebellum';
 import { Location } from '@angular/common';
-import { HeaderComponent, AvatarComponent, ThemeComponent, ScheduleComponent, CreditsComponent, SiglaComponent } from "sibella";
+import { HeaderComponent, AvatarComponent, ThemeComponent, ScheduleComponent, CreditsComponent, SiglaComponent, Support } from "sibella";
 import { Router } from '@angular/router';
 import { StatusBar, Style } from '@capacitor/status-bar';
+import { App } from '@capacitor/app';
 
 @Component({
   selector: 'app-settings',
@@ -13,14 +14,16 @@ import { StatusBar, Style } from '@capacitor/status-bar';
     ThemeComponent,
     ScheduleComponent,
     CreditsComponent,
-    SiglaComponent
-  ],
+    SiglaComponent,
+    Support
+],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss'
 })
-export class SettingsComponent {
+export class SettingsComponent implements OnInit, OnDestroy {
   public isDarkMode: boolean = false;
   public auth: Auth = { appid: '', appkey: '', icon: '', name: '' };
+  private backButtonListener: any;
 
   constructor(
     private location: Location,
@@ -28,6 +31,22 @@ export class SettingsComponent {
   ) {
     this.loadTheme();
     this.getSetting();
+  }
+
+  ngOnInit() {
+    this.backButtonListener = App.addListener('backButton', (event: { canGoBack: boolean }) => {
+      if (event.canGoBack) {
+        window.history.back();
+      } else {
+        if (confirm('Deseja realmente sair do app?')) {
+          App.exitApp();
+        }
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.backButtonListener.remove();
   }
 
   private getSetting() {

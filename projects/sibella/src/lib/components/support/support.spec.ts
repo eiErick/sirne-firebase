@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NutritionalDialog } from './nutritional-dialog';
+import { Support } from './support';
 
-describe('NutritionalDialog', () => {
-  let component: NutritionalDialog;
-  let fixture: ComponentFixture<NutritionalDialog>;
+describe('Support', () => {
+  let component: Support;
+  let fixture: ComponentFixture<Support>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NutritionalDialog]
+      imports: [Support]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(NutritionalDialog);
+    fixture = TestBed.createComponent(Support);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

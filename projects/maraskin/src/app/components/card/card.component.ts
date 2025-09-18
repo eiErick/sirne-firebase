@@ -5,7 +5,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { NutritionalDialog } from '../nutritional-dialog/nutritional-dialog';
+import { NutritionalDialog } from 'sibella';
 
 @Component({
   selector: 'app-card',
