@@ -16,7 +16,7 @@ import { App } from '@capacitor/app';
     CreditsComponent,
     SiglaComponent,
     Support
-],
+  ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss'
 })

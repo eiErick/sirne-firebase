@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'lib-support',
-  imports: [
-
-  ],
+  imports: [],
   templateUrl: './support.html',
   styleUrl: './support.scss'
 })

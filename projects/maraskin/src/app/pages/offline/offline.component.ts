@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-offline',
-  imports: [MatButtonModule],
+  imports: [
+    MatButtonModule
+  ],
   templateUrl: './offline.component.html',
   styleUrl: './offline.component.scss'
 })

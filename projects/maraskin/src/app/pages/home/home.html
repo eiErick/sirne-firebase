@@ -1,16 +1,3 @@
-<!-- <mat-tab-group headerPosition="below" class="tabs">
-  <mat-tab class="tabs__tab" label="First">
-    <div class="mat-mdc-tab-body-content menu">
-        a
-    </div>
-    <app-menu class="menu" />
-  </mat-tab>
-  <mat-tab class="tabs__tab" label="Second">
-    <app-snack class="snack" />
-  </mat-tab>
-  <mat-tab class="tabs__tab" label="Third"> Content 3 </mat-tab>
-</mat-tab-group> -->
-
 @switch (navigate()) { @case ('menu') {
     <app-menu [snacks]="snacks" [lunches]="lunches" [AllMenus]="menus" />
 } @case ('snack') {
@@ -18,32 +5,5 @@
 } @case ('lunch') {
     <app-lunch [allLunches]="lunches" />
 } }
-
-<!-- <mat-button-toggle-group class="navigate" name="fontStyle" aria-label="Font Style" hideSingleSelectionIndicator="" [(ngModel)]="navigate">
-    <mat-button-toggle value="menu">
-        <span class="material-symbols-outlined">chef_hat</span>
-    </mat-button-toggle>
-    <mat-button-toggle value="snack">
-        <span class="material-symbols-outlined">fastfood</span>
-    </mat-button-toggle>
-    <mat-button-toggle value="lunch">
-        <span class="material-symbols-outlined">dinner_dining</span>
-    </mat-button-toggle>
-</mat-button-toggle-group> -->
-
-<!-- <div class="navigate">
-  <div class="navigate__item" [ngClass]="{'selected': navigate == 'menu'}" (click)="browse('menu')">
-    <span class="material-symbols-outlined icon">chef_hat</span>
-    <span class="name">Cardápio</span>
-  </div>
-  <div class="navigate__item" [ngClass]="{'selected': navigate == 'snack'}" (click)="browse('snack')">
-    <span class="material-symbols-outlined icon">fastfood</span>
-    <span class="name">Merenda</span>
-  </div>
-  <div class="navigate__item" [ngClass]="{'selected': navigate == 'lunch'}" (click)="browse('lunch')">
-    <span class="material-symbols-outlined icon">dinner_dining</span>
-    <span class="name">Almoço</span>
-  </div>
-</div> -->
 
 <app-navigate />

@@ -1,5 +1,5 @@
-import { Component, computed, effect, inject, input, model, OnInit } from '@angular/core';
-import { MealResponse, MenuService, MealService, MealViewModel, MealRequest } from 'cerebellum';
+import { Component, effect, inject, input, OnInit } from '@angular/core';
+import { MealResponse, MealService, MealViewModel, MealRequest } from 'cerebellum';
 import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from '@angular/material/button';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
@@ -40,28 +40,6 @@ export class SnackComponent implements OnInit {
   public search() {
     this.snacks = [...this.allSnacks().filter((s) => s.name.toUpperCase().includes(this.searchTerm.toUpperCase()))];
   }
-
-  // public openSettings() {
-  //   this.modalCtrl.create({
-  //     component: SettingsComponent,
-  //   }).then((m) => m.present());
-  // }
-
-  // private async loadingScreen() {
-  //   const loading = await this.loadingCtrl.create({
-  //     message: 'Carregando...',
-  //     spinner: 'crescent'
-  //   });
-
-  //   await loading.present();
-
-  //   const interval = setInterval(async () => {
-  //     if (!this.loadMenu()) {
-  //       clearInterval(interval);
-  //       await loading.dismiss();
-  //     }
-  //   }, 100);
-  // }
 
   public async openEditSnack(snack: MealViewModel) {
     const bottomSheetRef = this.bottomSheet.open(MealFormMenu, { data: snack });

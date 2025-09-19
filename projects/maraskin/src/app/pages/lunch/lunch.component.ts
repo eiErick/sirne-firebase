@@ -41,28 +41,6 @@ export class LunchComponent {
     this.lunches = [...this.allLunches().filter((s) => s.name.toUpperCase().includes(this.searchTerm.toUpperCase()))];
   }
 
-  // public openSettings() {
-  //   this.modalCtrl.create({
-  //     component: SettingsComponent,
-  //   }).then((m) => m.present());
-  // }
-
-  // private async loadingScreen() {
-  //   const loading = await this.loadingCtrl.create({
-  //     message: 'Carregando...',
-  //     spinner: 'crescent'
-  //   });
-
-  //   await loading.present();
-
-  //   const interval = setInterval(async () => {
-  //     if (!this.loadMenu()) {
-  //       clearInterval(interval);
-  //       await loading.dismiss();
-  //     }
-  //   }, 100);
-  // }
-
   public async openEditLunch(lunch: MealViewModel) {
     const bottomSheetRef = this.bottomSheet.open(MealFormMenu, { data: lunch });
 

@@ -49,15 +49,6 @@ export class Home implements OnInit {
 
       this.snacks = snacks.map((s) => Mapper.mapMatchingProperties(s, new MealViewModel()));
       this.lunches = lunches.map((s) => Mapper.mapMatchingProperties(s, new MealViewModel()));
-
-
-      // this.filtredSnacks
-      // this.snacks = meals;
-
-      // console.log(meals);
-
-
-      // this.search();
     });
   }
 
@@ -81,14 +72,6 @@ export class Home implements OnInit {
 
       this.menus = this.organizeDays(menuViewModel);      
     });
-
-    // this.menus = [
-    //   { day: 'mon', id: '', snacks: [{ calories: 0, glucose: false, gluten: false, id: 0, lactose: false, likes: 0, name: 'merenda', type: 'snack' }], lunches: [{ calories: 0, glucose: false, gluten: false, id: 0, lactose: false, likes: 0, name: 'almoco', type: 'lunch' }] },
-    //   { day: 'thu', id: '', snacks: [{ calories: 0, glucose: false, gluten: false, id: 0, lactose: false, likes: 0, name: 'merenda', type: 'snack' }], lunches: [{ calories: 0, glucose: false, gluten: false, id: 0, lactose: false, likes: 0, name: 'almoco', type: 'lunch' }] },
-    //   { day: 'wed', id: '', snacks: [{ calories: 0, glucose: false, gluten: false, id: 0, lactose: false, likes: 0, name: 'merenda', type: 'snack' }], lunches: [{ calories: 0, glucose: false, gluten: false, id: 0, lactose: false, likes: 0, name: 'almoco', type: 'lunch' }] },
-    //   { day: 'tue', id: '', snacks: [{ calories: 0, glucose: false, gluten: false, id: 0, lactose: false, likes: 0, name: 'merenda', type: 'snack' }], lunches: [{ calories: 0, glucose: false, gluten: false, id: 0, lactose: false, likes: 0, name: 'almoco', type: 'lunch' }] },
-    //   { day: 'fri', id: '', snacks: [{ calories: 0, glucose: false, gluten: false, id: 0, lactose: false, likes: 0, name: 'merenda', type: 'snack' }], lunches: [{ calories: 0, glucose: false, gluten: false, id: 0, lactose: false, likes: 0, name: 'almoco', type: 'lunch' }] },
-    // ];
   }
 
   private organizeDays(menu: Menu[]): Menu[] {
