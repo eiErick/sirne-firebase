@@ -41,7 +41,7 @@ export class Home {
 
   ngOnInit() {
     this.getMenuStorage();
-    // this.getMenu();
+    this.getMenu();
   }
 
   public loadFiltredMenu() {
