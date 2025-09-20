@@ -1,6 +1,6 @@
 <span (click)="openNutritionalInfoDialog()" class="day" [class]="{'today': today}">{{ menu().day | dayTranslatePipe }}</span>
 
-<div class="snack">
+<div class="snack" (click)="openNutritionalInfoDialog()">
   <span class="description">MERENDA</span>
   <div class="snacks">
     @for (snack of menu().snacks; track $index) {
@@ -12,7 +12,7 @@
   </div>
 </div>
 
-<div class="lunch">
+<div class="lunch" (click)="openNutritionalInfoDialog()">
   <span class="description">ALMOÇO</span>
   <div class="lunches">
     @for (lunch of menu().lunches; track $index) {
