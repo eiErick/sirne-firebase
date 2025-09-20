@@ -1,11 +1,10 @@
-<h2 mat-dialog-title>Nutrição</h2>
 <mat-dialog-content>
-<div class="container">
+  <h2 class="title">NUTRIÇÃO</h2>
+
+  <div class="container">
     @if (data.snacks.length > 0) {
       <h3>MERENDA</h3>
-    }
-
-    @for (snack of data.snacks; track $index) {
+    } @for (snack of data.snacks; track $index) {
       <div class="snack">
         <span class="name">{{ snack.name }}</span>
 
@@ -15,24 +14,17 @@
         <div class="allergies">
           @if (snack.lactose) {
             <div class="allergy">LACTOSE</div>
-          }
-          
-          @if (snack.glucose) {
+          } @if (snack.glucose) {
             <div class="allergy">AÇÚCAR</div>
-          }
-          
-          @if (snack.gluten) {
+          } @if (snack.gluten) {
             <div class="allergy">GLÚTEN</div>
           }
         </div>
       </div>
-    }
-
+    } 
     @if (data.lunches.length > 0) {
       <h3>ALMOÇO</h3>
-    }
-
-    @for (lunch of data.lunches; track $index) {
+    } @for (lunch of data.lunches; track $index) {
       <div class="lunch">
         <span class="name">{{ lunch.name }}</span>
 
@@ -40,17 +32,12 @@
         <span>{{ lunch.calories }}</span>
 
         <div class="allergies">
-
           @if (lunch.lactose) {
             <div class="allergy">LACTOSE</div>
-          }
-          
-          @if (lunch.glucose) {
-            <div class="allergy">AÇUCAR</div>
-          }
-          
-          @if (lunch.gluten) {
-            <div class="allergy">GLUTEN</div>
+          } @if (lunch.glucose) {
+            <div class="allergy">AÇÚCAR</div>
+          } @if (lunch.gluten) {
+          <div class="allergy">GLÚTEN</div>
           }
         </div>
       </div>
