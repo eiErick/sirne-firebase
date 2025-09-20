@@ -1,7 +1,7 @@
 import { Component, computed, OnDestroy, OnInit } from '@angular/core';
 import { HeaderComponent } from "sibella";
 import { CommonModule, Location } from '@angular/common';
-import { SettingsService } from 'cerebellum';
+import { SettingsService, SnackbarService } from 'cerebellum';
 import { App } from '@capacitor/app';
 
 @Component({
@@ -19,7 +19,8 @@ export class Avatar implements OnInit, OnDestroy {
 
   constructor(
     private location: Location,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private snackbar: SnackbarService,
   ) { }
 
   ngOnInit() {
@@ -44,5 +45,6 @@ export class Avatar implements OnInit, OnDestroy {
 
   public selectAvatar(path: string) {
     this.settingsService.setIcon(path);
+    this.snackbar.showSuccess('Avatar selecionado com sucesso!');
   }
 }
