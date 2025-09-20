@@ -1,0 +1,39 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: var(--bg-color);
+    height: 100%;
+    gap: 1rem;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--bg-color-300);
+    padding: 2rem;
+    border-radius: var(--radius-10);
+    border: 1px solid var(--border-color-10);
+}
+
+.logo {
+    width: 10rem;
+    margin-bottom: 1.5rem;
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+}
+
+.password {
+    width: 15rem;
+}
+
+.login {
+    width: 15rem;
+    height: 56px;
+    border-radius: 5px;
+}
