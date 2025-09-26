@@ -1,12 +1,6 @@
-<lib-header title="SIRNE" (settings)="openSettings()" />
+<lib-header title="SIRNE" [load]="loading"  (settings)="openSettings()" />
 
 <div class="container">
-  @if (loading) {
-    <div class="container-load">
-      <mat-spinner />
-      <span>Carregando...</span>
-    </div>
-  } @else {
     <app-weekday-selector (change)="updateOptions($event)" />
 
     <div class="container-menu">
@@ -16,5 +10,4 @@
 
       <span class="obs">OBS: O cardápio escolar pode variar durante a semana, conforme a disponibilidade.</span>
     </div>
-  }
 </div>

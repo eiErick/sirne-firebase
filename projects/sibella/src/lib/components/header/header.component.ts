@@ -1,9 +1,11 @@
 import { Component, computed, input, output } from '@angular/core';
 import { SettingsService, KiamService } from 'cerebellum';
+import { Spinner } from "../spinner/spinner";
+import { SiglaComponent } from "../sigla/sigla.component";
 
 @Component({
   selector: 'lib-header',
-  imports: [],
+  imports: [Spinner],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

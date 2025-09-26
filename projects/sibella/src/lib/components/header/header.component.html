@@ -1,7 +1,9 @@
 <header class="header">
   <div class="header__left">
     @if (activeBack()) {
-      <span class="material-symbols-outlined back" (click)="onBack()">arrow_back_ios</span>
+    <span class="material-symbols-outlined back" (click)="onBack()">arrow_back_ios</span>
+    } @if(load()){
+    <lib-spinner></lib-spinner>
     }
   </div>
   <div class="header__center">
@@ -9,7 +11,7 @@
   </div>
   <div class="header__right">
     @if (activeIcon()) {
-      <img [src]="icon()" alt="icon" class="icon" (click)="openSettings()">
+    <img [src]="icon()" alt="icon" class="icon" (click)="openSettings()" />
     }
   </div>
 </header>
