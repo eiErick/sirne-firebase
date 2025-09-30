@@ -16,7 +16,7 @@
   <span class="description">ALMOÇO</span>
   <div class="lunches">
     @for (lunch of menu().lunches; track $index) {
-      <span class="name">{{ lunch.name }}</span>
+      <span class="name"> {{ lunch.name }} </span>
 
       @if ($index !== menu().lunches.length - 1) {
         <span>+</span>
