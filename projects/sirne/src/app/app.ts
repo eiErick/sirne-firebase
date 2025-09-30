@@ -2,6 +2,8 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { StatusBar, Style } from '@capacitor/status-bar';
 
+StatusBar.setOverlaysWebView({ overlay: false });
+
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
