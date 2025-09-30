@@ -1,104 +1,27 @@
-<lib-header (back)="back()" [activeIcon]="false" [activeBack]="true" [activeKiam]="false" title="AVATAR" />
+<lib-header
+  (back)="back()"
+  [activeIcon]="false"
+  [activeBack]="true"
+  [activeKiam]="false"
+  title="AVATAR"
+/>
 
 <div class="container">
   <div class="container__icons">
-    <img
-      src="cat.png"
-      (click)="selectAvatar('cat.png')"
-      [ngClass]="{ select: auth().icon === 'cat.png' }"
-    />
-    <img
-      src="centipede.png"
-      (click)="selectAvatar('centipede.png')"
-      [ngClass]="{ select: auth().icon === 'centipede.png' }"
-    />
-    <img
-      src="cuetzpalin.png"
-      (click)="selectAvatar('cuetzpalin.png')"
-      [ngClass]="{ select: auth().icon === 'cuetzpalin.png' }"
-    />
-    <img
-      src="gorilla.png"
-      (click)="selectAvatar('gorilla.png')"
-      [ngClass]="{ select: auth().icon === 'gorilla.png' }"
-    />
-    <img
-      src="leo.png"
-      (click)="selectAvatar('leo.png')"
-      [ngClass]="{ select: auth().icon === 'leo.png' }"
-    />
-    <img
-      src="meerkat.png"
-      (click)="selectAvatar('meerkat.png')"
-      [ngClass]="{ select: auth().icon === 'meerkat.png' }"
-    />
-    <img
-      src="panda.png"
-      (click)="selectAvatar('panda.png')"
-      [ngClass]="{ select: auth().icon === 'panda.png' }"
-    />
-    <img
-      src="penguin.png"
-      (click)="selectAvatar('penguin.png')"
-      [ngClass]="{ select: auth().icon === 'penguin.png' }"
-    />
-    <img
-      src="pink.png"
-      (click)="selectAvatar('pink.png')"
-      [ngClass]="{ select: auth().icon === 'pink.png' }"
-    />
-    <img
-      src="shark.png"
-      (click)="selectAvatar('shark.png')"
-      [ngClass]="{ select: auth().icon === 'shark.png' }"
-    />
-    <img
-      src="squirrel.png"
-      (click)="selectAvatar('squirrel.png')"
-      [ngClass]="{ select: auth().icon === 'squirrel.png' }"
-    />
-    <img
-      src="stingray.png"
-      (click)="selectAvatar('stingray.png')"
-      [ngClass]="{ select: auth().icon === 'stingray.png' }"
-    />
-    <img
-      src="peacock.png"
-      (click)="selectAvatar('peacock.png')"
-      [ngClass]="{ select: auth().icon === 'peacock.png' }"
-    />
-    <img
-      src="elephant.png"
-      (click)="selectAvatar('elephant.png')"
-      [ngClass]="{ select: auth().icon === 'elephant.png' }"
-    />
-    <img
-      src="beaver.png"
-      (click)="selectAvatar('beaver.png')"
-      [ngClass]="{ select: auth().icon === 'beaver.png' }"
-    />
-    <img
-      src="cockatiel.png"
-      (click)="selectAvatar('cockatiel.png')"
-      [ngClass]="{ select: auth().icon === 'cockatiel.png' }"
-    />
-    <img
-      src="cheetah.png"
-      (click)="selectAvatar('cheetah.png')"
-      [ngClass]="{ select: auth().icon === 'cheetah.png' }"
-    />
-    <img
-      src="turtle.png"
-      (click)="selectAvatar('turtle.png')"
-      [ngClass]="{ select: auth().icon === 'turtle.png' }"
-    />
-  </div>
+    @for (avatar of avatars; track $index) {
+      <img
+        [src]="avatar"
+        (click)="selectAvatar(avatar)"
+        [ngClass]="{ select: auth().icon === avatar }"
+      />
+    }
 
-  <a
-    class="icon-credit"
-    target="_blank"
-    href="https://www.flaticon.com/free-icons/animals"
-    title="animals icons"
-    >Animals icons created by Freepik - Flaticon</a
-  >
+    <a
+      class="icon-credit"
+      target="_blank"
+      href="https://www.flaticon.com/free-icons/animals"
+      title="animals icons"
+      >Animals icons created by Freepik - Flaticon</a
+    >
+  </div>
 </div>

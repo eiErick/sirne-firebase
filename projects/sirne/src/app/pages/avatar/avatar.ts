@@ -15,13 +15,16 @@ import { App } from '@capacitor/app';
 })
 export class Avatar implements OnInit, OnDestroy {
   public auth = computed(() => this.settingsService.auth());
+  public avatars: string[];
   private backButtonListener: any;
 
   constructor(
     private location: Location,
     private settingsService: SettingsService,
     private snackbar: SnackbarService,
-  ) { }
+  ) {
+    this.avatars = this.settingsService.avatars;
+  }
 
   ngOnInit() {
     this.backButtonListener = App.addListener('backButton', (event: { canGoBack: boolean }) => {

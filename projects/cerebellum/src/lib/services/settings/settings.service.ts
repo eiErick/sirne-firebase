@@ -6,6 +6,26 @@ import { Auth } from '../../models/auth.model';
 })
 export class SettingsService {
   public auth = signal<Auth>({ appid: '', appkey: '', name: '', icon: '' });
+  public avatars: string[] = [
+    'cat.png',
+    'centipede.png',
+    'cuetzpalin.png',
+    'gorilla.png',
+    'leo.png',
+    'meerkat.png',
+    'panda.png',
+    'penguin.png',
+    'pink.png',
+    'shark.png',
+    'squirrel.png',
+    'stingray.png',
+    'peacock.png',
+    'elephant.png',
+    'beaver.png',
+    'cockatiel.png',
+    'cheetah.png',
+    'turtle.png',
+  ];
 
   constructor() {
     this.getSetting();
@@ -25,8 +45,15 @@ export class SettingsService {
     }
 
     if (!this.auth().icon || this.auth().icon.length === 0) {
-      this.auth.update((auth) => ({ ...auth, icon: 'https://ionicframework.com/docs/img/demos/avatar.svg' }));
+      const icon = this.selectRandomAvatar();
+      this.auth.update((auth) => ({ ...auth, icon: icon }));
+      this.setIcon(this.selectRandomAvatar());
     }
+  }
+
+  private selectRandomAvatar(): string {
+    const randomIndex = Math.floor(Math.random() * this.avatars.length);
+    return this.avatars[randomIndex];
   }
 
   public async setIcon(path: string) {
