@@ -4,6 +4,7 @@ import { Settings } from './pages/settings/settings';
 import { Avatar } from './pages/avatar/avatar';
 import { Login } from './pages/login/login';
 import { AuthGuard } from './guards/auth-guard';
+import { LoginGuard } from './guards/login.guard';
 
 export const routes: Routes = [
     {
@@ -14,6 +15,7 @@ export const routes: Routes = [
     {
         path: 'login',
         component: Login,
+        canActivate: [LoginGuard]
     },
     {
         path: 'settings',
