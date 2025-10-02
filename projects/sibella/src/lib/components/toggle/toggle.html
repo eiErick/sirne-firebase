@@ -1,0 +1,19 @@
+<!--
+  Usamos um botão sem comportamento nativo para controlar acessibilidade
+  role="switch" e aria-checked ficam no host via HostBinding.
+-->
+<button
+  class="toggle"
+  [class.checked]="value"
+  [class.disabled]="disabled"
+  [attr.data-size]="size"
+  (click)="toggle()"
+  (keydown)="onKeydown($event)"
+  [attr.aria-checked]="value"
+  [disabled]="disabled"
+  type="button"
+>
+  <span class="track" aria-hidden="true">
+    <span class="thumb" aria-hidden="true"></span>
+  </span>
+</button>

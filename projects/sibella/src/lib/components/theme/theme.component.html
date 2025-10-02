@@ -1,2 +1,2 @@
 <span>Modo escuro</span>
-<mat-slide-toggle  [(ngModel)]="isDarkMode" (change)="toggleTheme()"></mat-slide-toggle>
+ <app-toggle [(ngModel)]="isDarkMode" (ngModelChange)="toggleTheme()">

@@ -1,0 +1,101 @@
+:host {
+    display: inline-block;
+    outline: none;
+}
+
+button.toggle {
+    -webkit-tap-highlight-color: transparent;
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    user-select: none;
+}
+
+button.toggle[data-size="sm"] {
+    --w: 36px;
+    --h: 20px;
+    --thumb: 16px;
+}
+
+button.toggle[data-size="md"] {
+    --w: 48px;
+    --h: 28px;
+    --thumb: 22px;
+}
+
+button.toggle[data-size="lg"] {
+    --w: 64px;
+    --h: 36px;
+    --thumb: 30px;
+}
+
+.track {
+    width: var(--w);
+    height: var(--h);
+    border-radius: calc(var(--h) / 2);
+    background-color: rgba(0, 0, 0, 0.12);
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+
+    /* Performance hints: GPU-accelerated transform for thumb */
+    will-change: background-color;
+    transition: background-color 180ms cubic-bezier(.2, .9, .3, 1);
+}
+
+.thumb {
+    position: absolute;
+    top: 50%;
+    left: 6%;
+    transform: translate3d(0, -50%, 0);
+    width: var(--thumb);
+    height: var(--thumb);
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    transition:
+        transform 160ms cubic-bezier(.2, .9, .3, 1),
+        box-shadow 120ms;
+    will-change: transform, box-shadow;
+    /* use translate3d to trigger compositor for smoothness */
+}
+
+button.toggle.checked .track {
+    background-color: var(--primary-color);
+}
+
+button.toggle.checked .thumb {
+    left: calc(100% - var(--thumb) - 6%);
+    transform: translate3d(0, -50%, 0);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.28);
+}
+
+button.toggle:focus-visible .track {
+    box-shadow: 0 0 0 4px rgba(63, 81, 181, 0.16);
+}
+
+button.toggle.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+button.toggle.disabled .track {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
+button.toggle.disabled .thumb {
+    box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .track,
+    .thumb {
+        transition: none !important;
+    }
+}

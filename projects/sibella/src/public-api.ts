@@ -13,3 +13,4 @@ export * from './lib/components/sigla/sigla.component';
 export * from './lib/components/theme/theme.component';
 export * from './lib/components/support/support';
 export * from './lib/components/nutritional-dialog/nutritional-dialog'
+export * from './lib/components/toggle/toggle';
