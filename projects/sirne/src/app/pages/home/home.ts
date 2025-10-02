@@ -47,9 +47,9 @@ export class Home {
   public loadFiltredMenu() {
     const checkedIds = this.options.filter(o => o.check).map(o => o.id);
 
-    this.filtredMenus = [...this.menus];
+    this.filtredMenus = structuredClone(this.menus)
 
-    checkedIds.length === 0 ? this.filtredMenus = [...this.menus] : this.filtredMenus = this.menus.filter(m => checkedIds.some(id => m.day === id));
+    checkedIds.length === 0 ? this.filtredMenus = structuredClone(this.menus) : this.filtredMenus = structuredClone(this.menus.filter(m => checkedIds.some(id => m.day === id)));
   }
 
   private getMenuStorage() {
@@ -75,7 +75,7 @@ export class Home {
       next: (res) => {
         if (res.length < 1) return;
 
-        const menuViewModel: Menu[] = [];
+        let menuViewModel: Menu[] = [];
 
         res.forEach((m) => {
           const lunches = m.lunches.map((l) => Mapper.mapMatchingProperties(l, new MealViewModel()));
@@ -86,6 +86,7 @@ export class Home {
             id: m.id,
             lunches: lunches,
             snacks: snacks,
+            today: false
           }
 
           menuViewModel.push(menu);
@@ -93,7 +94,9 @@ export class Home {
 
         this.loading = false;
 
-        this.menus = this.organizeDays(menuViewModel);
+        menuViewModel = this.organizeDays(menuViewModel);
+        this.menus = this.today(menuViewModel);
+
         this.setMenuStorage(this.menus);
         this.loadFiltredMenu();
       }, error: (err) => {
@@ -115,6 +118,17 @@ export class Home {
       const dayBIndex = daysOrder.indexOf(b.day.toLowerCase());
       return dayAIndex - dayBIndex;
     });
+  }
+
+  private today(menu: Menu[]): Menu[] {
+    const today = new Date();
+    const dayWeek = today.getDay() - 1;
+    const days = ['mon', 'tue', 'wed', 'thu', 'fri'];
+
+    const day = days[dayWeek];
+    menu.forEach((m) => m.today = (m.day === day));
+
+    return menu;
   }
 
   public updateOptions(options: dayOption[]) {

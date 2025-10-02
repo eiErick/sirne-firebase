@@ -11,25 +11,12 @@ import { NutritionalDialog } from 'sibella';
   templateUrl: './card.html',
   styleUrl: './card.scss'
 })
-export class Card implements OnInit {
+export class Card {
   private readonly dialogref = inject(MatDialog);
-
-  public menu = input.required<Menu>();
-  public today: boolean = false;
   
-  ngOnInit() {
-    this.checkDate();
-  }
-
+  public menu = input.required<Menu>();
+  
   public openNutritionalInfoDialog() {
     this.dialogref.open(NutritionalDialog, { data: { snacks: this.menu().snacks, lunches: this.menu().lunches } });
-  }
-
-  private checkDate() {
-    const today = new Date();
-    const dayWeek = today.getDay() - 1;
-
-    const days = ['mon', 'tue', 'wed', 'thu', 'fri'];
-    this.today = days[dayWeek] === this.menu().day;
   }
 }

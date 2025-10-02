@@ -1,6 +1,7 @@
 export interface Menu {
     day: 'mon' | 'tue' | 'wed' | 'thu' | 'fri';
     id: string;
+    today: boolean;
     snacks: MealViewModel[];
     lunches: MealViewModel[];
 }
@@ -39,6 +40,7 @@ export class MealViewModel {
     public likes: number = 0;
     public id: number = 0;
     public type: 'snack' | 'lunch' = 'snack';
+    public today: boolean = false;
 
     public validar(): boolean {
         return (
