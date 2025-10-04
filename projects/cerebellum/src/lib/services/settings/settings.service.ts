@@ -5,7 +5,7 @@ import { Auth } from '../../models/auth.model';
   providedIn: 'root'
 })
 export class SettingsService {
-  public auth = signal<Auth>({ appid: '', appkey: '', name: '', icon: '' });
+  public auth = signal<Auth>({ appid: '', appkey: '', name: '', icon: '', randomIcon: false });
   public avatars: string[] = [
     'cat.png',
     'centipede.png',
@@ -38,7 +38,7 @@ export class SettingsService {
       const auth: Auth = JSON.parse(authSaved);
       this.auth.set(auth);
     } else {
-      const auth: Auth = { appid: '', appkey: '', icon: 'https://ionicframework.com/docs/img/demos/avatar.svg', name: 'Estudante' }
+      const auth: Auth = { appid: '', appkey: '', icon: '', name: 'Estudante', randomIcon: false }
       this.auth.set(auth);
 
       localStorage.setItem('auth', JSON.stringify(auth));
@@ -49,6 +49,15 @@ export class SettingsService {
       this.auth.update((auth) => ({ ...auth, icon: icon }));
       this.setIcon(this.selectRandomAvatar());
     }
+
+    if (this.auth().randomIcon) {
+      const icon = this.selectRandomAvatar();
+
+      const auth = this.auth();
+      auth.icon = icon;
+
+      this.auth.set(auth);
+    }
   }
 
   private selectRandomAvatar(): string {
@@ -56,12 +65,21 @@ export class SettingsService {
     return this.avatars[randomIndex];
   }
 
-  public async setIcon(path: string) {
+  public async setIcon(path: string) {    
     const auth = this.auth();
+
     auth.icon = path;
 
-    this.auth.update((auth) => ({ ...auth, icon: path }));
+    this.auth.set(auth);
 
+    localStorage.setItem('auth', JSON.stringify(auth));
+  }
+
+  public setRandomAvatar(status: boolean) {
+    const auth = this.auth();
+    auth.randomIcon = status;
+
+    this.auth.update((auth) => ({ ...auth, randomIcon: status }));
     localStorage.setItem('auth', JSON.stringify(auth));
   }
 }

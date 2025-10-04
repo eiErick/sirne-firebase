@@ -7,6 +7,8 @@
 />
 
 <div class="container">
+  <lib-random-avatar class="random" [randomValue]="auth().randomIcon" (change)="avatarRandom($event)"></lib-random-avatar>
+
   <div class="container__icons">
     @for (avatar of avatars; track $index) {
       <img

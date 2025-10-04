@@ -20,7 +20,7 @@ import { Router } from '@angular/router';
   styleUrl: './login.scss'
 })
 export class Login {
-  public loginSel: Auth = { appid: '', appkey: '', icon: '', name: 'Estudante' };
+  public loginSel: Auth = { appid: '', appkey: '', icon: '', name: 'Estudante', randomIcon: false };
 
   constructor(
     private router: Router

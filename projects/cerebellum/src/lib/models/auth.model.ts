@@ -3,4 +3,5 @@ export interface Auth {
     icon: string,
     appid: string,
     appkey: string,
+    randomIcon: boolean,
 }

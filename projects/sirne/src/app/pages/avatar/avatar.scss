@@ -14,6 +14,10 @@
     background: var(--bg-color);
     border-radius: var(--radius-10) var(--radius-10) 0 0;
 
+    .random {
+        margin-bottom: 1rem;
+    }
+
     &__icons {
         display: flex;
         flex-wrap: wrap;

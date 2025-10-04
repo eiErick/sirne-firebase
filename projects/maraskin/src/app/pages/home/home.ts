@@ -65,6 +65,7 @@ export class Home implements OnInit {
           id: m.id,
           lunches: lunches,
           snacks: snacks,
+          today: false,
         }
 
         menuViewModel.push(menu);

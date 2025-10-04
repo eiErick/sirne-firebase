@@ -1,14 +1,15 @@
 import { Component, computed, OnDestroy, OnInit } from '@angular/core';
 import { SettingsService, SnackbarService } from 'cerebellum';
 import { CommonModule, Location } from '@angular/common';
-import { HeaderComponent } from 'sibella';
+import { HeaderComponent, RandomAvatar } from 'sibella';
 import { App } from '@capacitor/app';
 
 @Component({
   selector: 'app-avatar',
   imports: [
     CommonModule,
-    HeaderComponent
+    HeaderComponent,
+    RandomAvatar
   ],
   templateUrl: './avatar.html',
   styleUrl: './avatar.scss'
@@ -46,8 +47,13 @@ export class Avatar implements OnInit, OnDestroy {
     this.location.back();
   }
 
+  public avatarRandom(status: boolean) {
+    this.settingsService.setRandomAvatar(status);
+  }
+
   public selectAvatar(path: string) {
     this.settingsService.setIcon(path);
+    this.avatarRandom(false);
     this.snackbar.showSuccess('Avatar selecionado com sucesso!');
   }
 }

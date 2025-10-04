@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Auth } from 'cerebellum';
+import { Auth, SettingsService } from 'cerebellum';
 import { HeaderComponent, AvatarComponent, ThemeComponent, ScheduleComponent, CreditsComponent, SiglaComponent, Support } from "sibella";
 import { Location } from '@angular/common';
 import { App } from '@capacitor/app';
@@ -21,15 +21,16 @@ import { App } from '@capacitor/app';
 })
 export class Settings implements OnInit, OnDestroy {
   public isDarkMode: boolean = false;
-  public auth: Auth = { appid: '', appkey: '', icon: '', name: '' };
+  public auth = computed(() => this.settingsService.auth());
   private backButtonListener: any;
 
   constructor(
     private location: Location,
-    private router: Router
+    private router: Router,
+    private settingsService: SettingsService
   ) {
     this.loadTheme();
-    this.getSetting();
+    // this.getSetting();
   }
 
   ngOnInit() {
@@ -48,14 +49,14 @@ export class Settings implements OnInit, OnDestroy {
     this.backButtonListener.remove();
   }
 
-  private getSetting() {
-    const authSaved = localStorage.getItem('auth');
+  // private getSetting() {
+  //   const authSaved = localStorage.getItem('auth');
 
-    if (authSaved !== null) {
-      const auth: Auth = JSON.parse(authSaved);
-      this.auth = auth;
-    }
-  }
+  //   if (authSaved !== null) {
+  //     const auth: Auth = JSON.parse(authSaved);
+  //     // this.auth = auth;
+  //   }
+  // }
 
   public loadTheme() {
     const storedTheme = localStorage.getItem('dark-mode');
