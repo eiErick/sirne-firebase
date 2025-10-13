@@ -17,6 +17,9 @@
         [ngClass]="{ select: auth().icon === avatar }"
       />
     }
+    
+    <button class="buttons" (click)="fileInput.click()"> <img draggable="false" src="add.svg"> </button>
+    <input class="input" type="file" #fileInput (change)="fileSelected($event)" accept="image/*">
 
     <a
       class="icon-credit"
