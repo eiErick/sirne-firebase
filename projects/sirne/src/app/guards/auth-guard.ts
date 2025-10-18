@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
       password = JSON.parse(saved).appid;
     }
 
-    if (password === 'SMSC2025') {
+    if (password.toLocaleLowerCase() === 'coffebaby2025' || password.toUpperCase() === 'SMSC2025') {
       return true;
     }
 
