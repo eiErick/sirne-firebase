@@ -15,3 +15,4 @@ export * from './lib/components/support/support';
 export * from './lib/components/nutritional-dialog/nutritional-dialog'
 export * from './lib/components/toggle/toggle';
 export * from './lib/components/random-avatar/random-avatar';
+export * from './lib/components/deep-orange/deep-orange';
