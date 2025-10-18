@@ -10,9 +10,8 @@ html {
       density: 0,
     ));
 
-  @include mat.dialog-overrides((
-    container-color: var(--bg-color-300),
-  ));
+  @include mat.dialog-overrides((container-color: var(--bg-color-300),
+    ));
 
   height: 100%;
 }
@@ -49,6 +48,21 @@ body {
   margin: 0;
   height: 100%;
 }
+
+app-root {
+  display: block;
+  height: 100%;
+  padding-top: var(--ion-safe-area-top, 0px);
+  padding-bottom: var(--ion-safe-area-bottom, 0px);
+}
+
+body,
+app-root {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  background-color: var(--ion-background-color, #fff);
+}
+
 
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
