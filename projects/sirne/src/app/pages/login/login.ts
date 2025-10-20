@@ -27,6 +27,7 @@ export class Login {
   ) {}
 
   public login() {
+    if (this.loginSel.appid.toLowerCase() === "smsc2025") return;
     localStorage.setItem('auth', JSON.stringify(this.loginSel));
     this.router.navigate(['home']);
   }

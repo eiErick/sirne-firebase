@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { StatusBar, Style } from '@capacitor/status-bar';
+import { App } from '@capacitor/app';
 
 StatusBar.setOverlaysWebView({ overlay: false });
 
@@ -10,7 +11,7 @@ StatusBar.setOverlaysWebView({ overlay: false });
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App {
+export class AppComponent {
   protected readonly title = signal('maraskin');
 
   public darkMode = false;
@@ -19,8 +20,15 @@ export class App {
     this.initializeApp();
   }
 
-  public initializeApp() {
+  public async initializeApp() {
     this.initTheme();
+
+
+    await App.addListener('appStateChange', async () => {
+      await StatusBar.setOverlaysWebView({ overlay: true });
+    });
+
+    await StatusBar.setOverlaysWebView({ overlay: true });
   }
 
   private initTheme() {
