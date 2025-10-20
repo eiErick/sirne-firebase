@@ -5,6 +5,7 @@ import { HeaderComponent } from 'sibella';
 import { Card } from '../../components/card/card';
 import { dayOption, WeekdaySelector } from '../../components/weekday-selector/weekday-selector';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -72,7 +73,7 @@ export class Home {
   }
 
   public getMenu() {
-    this.menuService.getItems().subscribe({
+    this.menuService.getItems().pipe(first()).subscribe({
       next: (res) => {
         if (res.length < 1) return;
 
