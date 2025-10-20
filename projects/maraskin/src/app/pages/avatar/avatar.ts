@@ -1,27 +1,28 @@
 import { Component, computed, OnDestroy, OnInit } from '@angular/core';
-import { HeaderComponent } from "sibella";
 import { CommonModule, Location } from '@angular/common';
 import { SettingsService, SnackbarService } from 'cerebellum';
+import { HeaderComponent, RandomAvatar } from 'sibella';
 import { App } from '@capacitor/app';
+import { MyAvatar } from 'sibella';
 
 @Component({
   selector: 'app-avatar',
-  imports: [
-    HeaderComponent,
-    CommonModule
-  ],
+  imports: [HeaderComponent, CommonModule, RandomAvatar, MyAvatar],
   templateUrl: './avatar.html',
-  styleUrl: './avatar.scss'
+  styleUrl: './avatar.scss',
 })
 export class Avatar implements OnInit, OnDestroy {
   public auth = computed(() => this.settingsService.auth());
+  public avatars: string[];
   private backButtonListener: any;
 
   constructor(
     private location: Location,
     private settingsService: SettingsService,
-    private snackbar: SnackbarService,
-  ) { }
+    private snackbar: SnackbarService
+  ) {
+    this.avatars = this.settingsService.avatars;
+  }
 
   ngOnInit() {
     this.backButtonListener = App.addListener('backButton', (event: { canGoBack: boolean }) => {
@@ -43,8 +44,13 @@ export class Avatar implements OnInit, OnDestroy {
     this.location.back();
   }
 
+  public avatarRandom(status: boolean) {
+    this.settingsService.setRandomAvatar(status);
+  }
+
   public selectAvatar(path: string) {
     this.settingsService.setIcon(path);
+    this.avatarRandom(false);
     this.snackbar.showSuccess('Avatar selecionado com sucesso!');
   }
 }
