@@ -1,0 +1,25 @@
+.button {
+  width: 30%;
+  height: 100px;
+  margin-bottom: 1rem;
+  border-radius: 100rem;
+  background-color: transparent;
+  border: none;
+
+  img {
+    background-color: var(--primary-color);
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    transition: 300ms;
+  }
+
+  img:hover {
+    transition: 300ms;
+    background-color: var(--pg-color-700);
+  }
+}
+
+.input {
+  display: none;
+}

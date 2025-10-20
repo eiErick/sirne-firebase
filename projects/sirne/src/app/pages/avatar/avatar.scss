@@ -14,29 +14,12 @@
   background: var(--bg-color);
   border-radius: var(--radius-10) var(--radius-10) 0 0;
 
-  .buttons {
+  .myAvatar {
     width: 30%;
     height: 100px;
-    margin-bottom: 1rem;
-    border-radius: 100rem;
-    background-color: transparent;
-    border: none;
-
-    img {
-      background-color: var(--primary-color);
-      width: 100px;
-      height: 100px;
-      transition: 300ms;
-    }
-
-    img:hover {
-      transition: 300ms;
-      background-color: var(--pg-color-700);
-    }
-  }
-
-  .input {
-    display: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .random {
