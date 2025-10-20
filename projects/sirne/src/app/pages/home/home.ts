@@ -56,7 +56,7 @@ export class Home {
     const saved = localStorage.getItem('menu');
 
     if (saved !== null) {
-      const menus: Menu[] = JSON.parse(saved);
+      let menus: Menu[] = JSON.parse(saved);
 
       if (menus.length < 1) {
         this.loading = true;
@@ -65,7 +65,8 @@ export class Home {
 
       this.loading = false;
 
-      this.menus = this.organizeDays(menus);
+      menus = this.organizeDays(menus);
+      this.menus = this.today(menus);
       this.loadFiltredMenu();
     }
   }
