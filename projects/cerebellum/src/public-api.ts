@@ -16,6 +16,7 @@ export * from './lib/guards/offline-guard';
 
 // PIPES
 export * from './lib/pipes/day-translate.pipe';
+export * from './lib/pipes/zero-placeholder.pipe'
 
 // MODELS
 export * from './lib/models/assessment.model';

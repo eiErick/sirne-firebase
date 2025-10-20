@@ -9,7 +9,7 @@
         <span class="name">{{ snack.name }}</span>
 
         <span>Calorias</span>
-        <span>{{ snack.calories }}</span>
+        <span>{{ snack.calories | zeroPlaceholder }}</span>
 
         <div class="allergies">
           @if (snack.lactose) {
@@ -29,7 +29,7 @@
         <span class="name">{{ lunch.name }}</span>
 
         <span>Calorias</span>
-        <span>{{ lunch.calories }}</span>
+        <span>{{ lunch.calories | zeroPlaceholder }}</span>
 
         <div class="allergies">
           @if (lunch.lactose) {
