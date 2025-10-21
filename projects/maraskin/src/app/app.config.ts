@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withViewTransitions } from '@angular/router';
 
 import { routes } from './app.routes';
 
@@ -12,9 +12,15 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
+    provideRouter(routes, withViewTransitions({
+      onViewTransitionCreated: ({ transition, from, to }) => {
+        if (from?.routeConfig?.path === to?.routeConfig?.path) {
+          transition.skipTransition();
+        }
+      }
+    })),
     provideFirebaseApp(() => initializeApp(envirionment.firebaseConfig)),
-      provideAuth(() => getAuth()),
-      provideFirestore(() => getFirestore())
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore())
   ]
 };

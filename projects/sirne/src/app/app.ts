@@ -13,7 +13,7 @@ enableEdgeToEdge();
   selector: 'app-root',
   imports: [RouterOutlet],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class AppComponent {
   protected readonly title = signal('sirne');
@@ -39,13 +39,13 @@ export class AppComponent {
       deepOrange = JSON.parse(storedOrange);
 
     }
-    
+
     if (deepOrange) {
       document.documentElement.classList.add('app-deep-orange');
     } else {
       document.documentElement.classList.add('app-orange');
     }
-    
+
     if (storedTheme) {
       const theme = JSON.parse(storedTheme);
 

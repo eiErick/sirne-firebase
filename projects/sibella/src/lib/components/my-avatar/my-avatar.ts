@@ -11,7 +11,7 @@ export class MyAvatar {
 
   @Output() change = new EventEmitter<string>();
 
-  fileSelected(event: Event) {
+  public fileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (!input.files || input.files.length === 0) return;
 
