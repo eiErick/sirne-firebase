@@ -17,11 +17,12 @@ export class LoginGuard implements CanActivate {
       password = JSON.parse(saved).appid;
     }
 
-    if (password.toLocaleLowerCase() === 'coffebaby2025' || password.toUpperCase() === 'SMSC2025') {
-      this.router.navigate(['/home']);
-      return false;
-    }
-
-    return true;
+    // if (password.toLocaleLowerCase() === 'coffebaby2025' || password.toUpperCase() === 'SMSC2025') {
+    //   this.router.navigate(['/home']);
+    //   return false;
+    // }
+    
+    this.router.navigate(['/home']);
+    return false;
   }
 }

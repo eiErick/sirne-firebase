@@ -10,7 +10,7 @@ export const routes: Routes = [
     {
         path: 'home',
         component: Home,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
     },
     {
         path: 'login',
@@ -20,12 +20,12 @@ export const routes: Routes = [
     {
         path: 'settings',
         component: Settings,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
     },
     {
         path: 'avatar',
         component: Avatar,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
     },
     {
         path: '',
