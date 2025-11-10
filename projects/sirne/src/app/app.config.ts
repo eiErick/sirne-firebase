@@ -1,4 +1,4 @@
-import { ApplicationConfig, inject, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, inject, provideBrowserGlobalErrorListeners, provideZoneChangeDetection, isDevMode } from '@angular/core';
 import { provideRouter, Router, withViewTransitions } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -6,7 +6,8 @@ import { routes } from './app.routes';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { envirionment } from '../../../../enviroments/environment'
+import { envirionment } from '../../../../enviroments/environment';
+import { provideServiceWorker } from '@angular/service-worker'
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,6 +19,9 @@ export const appConfig: ApplicationConfig = {
     })),
     provideFirebaseApp(() => initializeApp(envirionment.firebaseConfig)),
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()), provideServiceWorker('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            registrationStrategy: 'registerWhenStable:30000'
+          })
   ]
 };
