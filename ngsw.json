@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1762818460031,
+  "timestamp": 1762818667956,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -83,7 +83,7 @@
     "/icons/icon-96-96.png": "bfa9680e2aad6e457069b0c85ce68ef88fd86542",
     "/icons/logo.png": "62972c63b2ac0adf668991aff88db114e9df0321",
     "/icons/splash.png": "62972c63b2ac0adf668991aff88db114e9df0321",
-    "/index.html": "cc09e354e74336438da143e1d9f89a77dccfe036",
+    "/index.html": "22bc4f938f61990022469e888cf691986206e2b7",
     "/leo.png": "6e8178c3204d99b68134c39b0c3c198a105df5db",
     "/main-ZUK3CPAC.js": "4126de538c29e378c357b3a74b39c94efc10bf93",
     "/manifest.webmanifest": "260e390c119b73b94e3b81ce60121536bf580423",
