@@ -9,7 +9,8 @@ export * from './lib/services/menu/menu.service';
 export * from './lib/services/meal/meal.service.service';
 export * from './lib/services/settings/settings.service';
 export * from './lib/services/kiam/kiam.service';
-export * from './lib/services/snackbar/snackbar.service'
+export * from './lib/services/snackbar/snackbar.service';
+export * from './lib/services/pwa/plataform.service';
 
 // GUARDS
 export * from './lib/guards/offline-guard';
