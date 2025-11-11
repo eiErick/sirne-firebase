@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1762818842706,
+  "timestamp": 1762897849805,
   "index": "https://eierick.github.io/sirne-firebase/index.html",
   "assetGroups": [
     {
@@ -83,10 +83,10 @@
     "https://eierick.github.io/sirne-firebase/icons/icon-96-96.png": "bfa9680e2aad6e457069b0c85ce68ef88fd86542",
     "https://eierick.github.io/sirne-firebase/icons/logo.png": "62972c63b2ac0adf668991aff88db114e9df0321",
     "https://eierick.github.io/sirne-firebase/icons/splash.png": "62972c63b2ac0adf668991aff88db114e9df0321",
-    "https://eierick.github.io/sirne-firebase/index.html": "5f2db18fa98cfc9ad0d8f048f45a3745fdbb0b23",
+    "https://eierick.github.io/sirne-firebase/index.html": "3278e33740e2bd0b709ee169a6433609951fca79",
     "https://eierick.github.io/sirne-firebase/leo.png": "6e8178c3204d99b68134c39b0c3c198a105df5db",
     "https://eierick.github.io/sirne-firebase/main-ZUK3CPAC.js": "4126de538c29e378c357b3a74b39c94efc10bf93",
-    "https://eierick.github.io/sirne-firebase/manifest.webmanifest": "260e390c119b73b94e3b81ce60121536bf580423",
+    "https://eierick.github.io/sirne-firebase/manifest.webmanifest": "478ed0b3c20d0bc36ecbd72b645625a5c3dc62c8",
     "https://eierick.github.io/sirne-firebase/meerkat.png": "f1132e819113c6df240e39b5c5d1eabb913a6117",
     "https://eierick.github.io/sirne-firebase/panda.png": "96f6c69835dd14fabc1835c64718888b11e0ba82",
     "https://eierick.github.io/sirne-firebase/peacock.png": "fd6e9d9798613b9e4e20b103b2fd6cbcbc370b5d",
