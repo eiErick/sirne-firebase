@@ -7,7 +7,11 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "build:app": "bash ./build.sh",
-    "build:ghpages": "npx ng build --configuration production --base-href 'https://eierick.github.io/sirne-firebase/' --project=sirne && npx angular-cli-ghpages --dir=dist/sirne/browser"
+    "build:ghpages": "npx ng build --configuration production --base-href 'https://eierick.github.io/sirne-firebase/' --project=sirne && npx angular-cli-ghpages --dir=dist/sirne/browser",
+    "sirne": "ng s --port 4200 --project=sirne",
+    "maraskin": "ng s --port 4100 --project=maraskin",
+    "sibella": "ng build --watch --project=sibella",
+    "cerebellum": "ng s --port 4200 --project=cerebellum"
   },
   "prettier": {
     "printWidth": 100,
