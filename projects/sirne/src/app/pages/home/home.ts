@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Mapper, MealViewModel, Menu, MenuService, SnackbarService } from 'cerebellum';
-import { HeaderComponent } from 'sibella';
+import { HeaderComponent, FooterComponent } from 'sibella';
 import { Card } from '../../components/card/card';
 import { dayOption, WeekdaySelector } from '../../components/weekday-selector/weekday-selector';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -12,6 +12,7 @@ import { first } from 'rxjs';
   imports: [
     HeaderComponent,
     Card,
+    FooterComponent,
     WeekdaySelector,
     MatProgressSpinnerModule
   ],
