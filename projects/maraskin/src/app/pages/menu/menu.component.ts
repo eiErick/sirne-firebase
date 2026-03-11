@@ -3,6 +3,7 @@ import { MealRequestMenu, MealViewModel, Menu, MenuRequest, MenuService } from '
 import { CardComponent } from '../../components/card/card.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { HeaderComponent } from 'sibella';
 import { Router } from '@angular/router';
 
@@ -12,7 +13,8 @@ import { Router } from '@angular/router';
     CardComponent,
     MatTabsModule,
     MatButtonToggleModule,
-    HeaderComponent
+    HeaderComponent,
+    MatSidenavModule
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'

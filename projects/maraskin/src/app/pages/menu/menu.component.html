@@ -1,20 +1,20 @@
 <lib-header title="Maraskin" (settings)="openSettings()" />
 
-<div class="side-bar">
-  
-</div>
+<mat-drawer-container class="container">
+  <mat-drawer class="side-bar-container" mode="side" opened>
+    <div class="side-bar">
 
-<div class="container">
-  @for (menu of menus; track $index) {
-    <app-card
-        [lunches]="lunches()"
-        [menu]="menu"
-        [snacks]="snacks()"
-        (changedMenu)="changeMenu($event)"
-        (addSnack)="addMealToMenu($event, menu.day, 'snack')"
-        (addLunch)="addMealToMenu($event, menu.day, 'lunch')"
+    </div>
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <div class="month-container">
+      @for (menu of menus; track $index) {
+      <app-card [lunches]="lunches()" [menu]="menu" [snacks]="snacks()" (changedMenu)="changeMenu($event)"
+        (addSnack)="addMealToMenu($event, menu.day, 'snack')" (addLunch)="addMealToMenu($event, menu.day, 'lunch')"
         (removedSnack)="removeMealToMenu($event, menu.day, 'snack')"
-        (removedLunch)="removeMealToMenu($event, menu.day, 'lunch')"
-        (changedMenu)="changeMenu($event)"
-    />
-}
+        (removedLunch)="removeMealToMenu($event, menu.day, 'lunch')" (changedMenu)="changeMenu($event)" />
+      }
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
