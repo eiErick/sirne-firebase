@@ -2,19 +2,25 @@
 
 <mat-drawer-container class="container">
   <mat-drawer class="side-bar-container" mode="side" opened>
-    <div class="side-bar">
-
-    </div>
+      @for (month of calendar; track $index) {
+        <div class="month" [ngClass]="{'selected': month.selected}" (click)="selectMonth(month)">
+          <span class="name">{{ month.monthName }}</span>
+        </div>
+      }
   </mat-drawer>
 
   <mat-drawer-content>
     <div class="month-container">
-      @for (menu of menus; track $index) {
+      @for (week of weeksSelected; track $index) {
+        <span class="week">Semana {{ $index + 1 }}°</span>
+        <div class="line"></div>
+      }
+      <!-- @for (menu of menus; track $index) {
       <app-card [lunches]="lunches()" [menu]="menu" [snacks]="snacks()" (changedMenu)="changeMenu($event)"
         (addSnack)="addMealToMenu($event, menu.day, 'snack')" (addLunch)="addMealToMenu($event, menu.day, 'lunch')"
         (removedSnack)="removeMealToMenu($event, menu.day, 'snack')"
         (removedLunch)="removeMealToMenu($event, menu.day, 'lunch')" (changedMenu)="changeMenu($event)" />
-      }
+      } -->
     </div>
   </mat-drawer-content>
 </mat-drawer-container>
