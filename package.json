@@ -11,7 +11,7 @@
     "sirne": "ng s --port 4200 --project=sirne",
     "maraskin": "ng s --port 4100 --project=maraskin",
     "sibella": "ng build --watch --project=sibella",
-    "cerebellum": "ng s --port 4200 --project=cerebellum"
+    "cerebellum": "ng build --watch --project=cerebellum"
   },
   "prettier": {
     "printWidth": 100,
