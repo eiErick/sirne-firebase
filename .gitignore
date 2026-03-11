@@ -46,3 +46,6 @@ environments/
 
 #Adroid
 android
+
+#Personal
+.local
