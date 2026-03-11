@@ -1,59 +1,77 @@
 :host {
-    overflow: hidden;
-    background: var(--navigation-color);
-    height: 100%;
-    display: flex;
-    width: 100%;
-    flex-direction: column;
+  overflow: hidden;
+  background: var(--navigation-color);
+  height: 100%;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
 }
 
 .container {
+  .container-logos {
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    .cetepsLogo {
+      margin-left: 20px;
+      height: 45px;
+      width: 45px;
+    }
+
+    .governoLogo {
+      margin-left: 20px;
+      height: 100px;
+      width: 100px;
+    }
+  }
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 2rem 0 0 0;
+  background-color: var(--bg-color);
+  height: 100%;
+  border-radius: var(--radius-10) var(--radius-10) 0 0;
+
+  .container-load {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: .5rem;
-    padding: 2rem 0 0 0;
-    background-color: var(--bg-color);
-    height: 100%;
-    border-radius: var(--radius-10) var(--radius-10) 0 0;
+    gap: 1rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 
-    .container-load {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+  .container-menu {
+    overflow: auto;
+    display: flex;
+    align-items: start;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0.5rem 0 4rem 0;
+
+    .obs {
+      text-align: center;
+      width: 90%;
     }
+  }
 
-    .container-menu {
-        overflow: auto;
-        display: flex;
-        align-items: start;
-        gap: 1rem;
-        justify-content: center;
-        flex-wrap: wrap;
-        padding: .5rem 0 4rem 0;
-
-        .obs {
-            text-align: center;
-            width: 90%;
-        }
-    }
-
-    .error {
-        font-size: 1.5rem;
-        text-align: center;
-    }
+  .error {
+    font-size: 1.5rem;
+    text-align: center;
+  }
 }
 
 .snack {
-    height: calc(100vh - 48px);
+  height: calc(100vh - 48px);
 }
 
 .container__navigate {
-    position: fixed;
-    bottom: 1rem;
-    background: var(--bg-color-300);
+  position: fixed;
+  bottom: 1rem;
+  background: var(--bg-color-300);
 }
