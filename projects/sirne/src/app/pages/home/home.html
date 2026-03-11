@@ -1,13 +1,18 @@
 <lib-header title="SIRNE" [load]="loading"  (settings)="openSettings()" />
 
 <div class="container">
+  <div class="container-logos">
+    <img class="cetepsLogo" src="/icons/cetepsLogo.png" alt="imagem" draggable="false">
+    <img class="governoLogo" src="/icons/governoLogo.png" alt="imagem" draggable="false">
+  </div>
     <app-weekday-selector (change)="updateOptions($event)" />
 
     <div class="container-menu">
       @for (menu of filtredMenus; track $index) {
         <app-card [menu]="menu" />
       }
-
       <span class="obs">Todas as informações sobre o cardápio são fornecidas pela gestão e podem variar durante a semana conforme a disponibilidade.</span>
     </div>
 </div>
+
+<lib-footer></lib-footer>

@@ -6,6 +6,7 @@ export * from './lib/sibella';
 
 // COMPONENTS
 export * from './lib/components/header/header.component';
+export * from './lib/components/footer/footer.component';
 export * from './lib/components/avatar/avatar.component';
 export * from './lib/components/credits/credits.component';
 export * from './lib/components/schedule/schedule.component';
