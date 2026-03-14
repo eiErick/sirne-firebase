@@ -2,25 +2,38 @@
 
 <mat-drawer-container class="container">
   <mat-drawer class="side-bar-container" mode="side" opened>
-      @for (month of calendar; track $index) {
-        <div class="month" [ngClass]="{'selected': month.selected}" (click)="selectMonth(month)">
-          <span class="name">{{ month.monthName }}</span>
-        </div>
-      }
+    @for (month of calendar; track $index) {
+      <div class="month" [ngClass]="{'selected': month.selected}" (click)="selectMonth(month)">
+        <span class="name">{{ month.monthName }}</span>
+      </div>
+    }
   </mat-drawer>
-
+  
   <mat-drawer-content>
-    <div class="month-container">
-      @for (week of weeksSelected; track $index) {
-        <span class="week">Semana {{ $index + 1 }}°</span>
-        <div class="line"></div>
-      }
-      <!-- @for (menu of menus; track $index) {
-      <app-card [lunches]="lunches()" [menu]="menu" [snacks]="snacks()" (changedMenu)="changeMenu($event)"
-        (addSnack)="addMealToMenu($event, menu.day, 'snack')" (addLunch)="addMealToMenu($event, menu.day, 'lunch')"
-        (removedSnack)="removeMealToMenu($event, menu.day, 'snack')"
-        (removedLunch)="removeMealToMenu($event, menu.day, 'lunch')" (changedMenu)="changeMenu($event)" />
-      } -->
-    </div>
+    @if (weekSelected.length === 0) {
+      <div class="month-container">
+        @for (week of weeksSelected; track $index) {
+          <span class="week" (click)="selectWeek(week, $index)">Semana {{ $index + 1 }}°</span>
+          <div class="line"></div>
+        }
+      </div>
+    } @else {
+      <div class="container-week">
+        <div class="container-header-week">
+          <span class="material-symbols-outlined back" (click)="backMonth()">arrow_back_ios</span>
+
+          <span class="num-week">Semana --</span>
+        </div>
+    
+        <div class="container-week-cards">
+          @for (menu of menus; track $index) {
+            <app-card [lunches]="lunches()" [menu]="menu" [snacks]="snacks()" (changedMenu)="changeMenu($event)"
+            (addSnack)="addMealToMenu($event, menu.day, 'snack')" (addLunch)="addMealToMenu($event, menu.day, 'lunch')"
+            (removedSnack)="removeMealToMenu($event, menu.day, 'snack')"
+            (removedLunch)="removeMealToMenu($event, menu.day, 'lunch')" (changedMenu)="changeMenu($event)" />
+          }
+        </div>
+      </div>
+    }
   </mat-drawer-content>
 </mat-drawer-container>

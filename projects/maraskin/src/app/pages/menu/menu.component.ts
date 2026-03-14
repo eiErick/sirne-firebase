@@ -1,5 +1,5 @@
 import { Component, effect, input } from '@angular/core';
-import { DayCell, MealRequestMenu, MealViewModel, Menu, MenuRequest, MenuService, MonthCalendar } from 'cerebellum';
+import { DayCell, MealRequestMenu, MealViewModel, Menu, MenuRequest, MenuService, MonthCalendar, MenuWeek, Day } from 'cerebellum';
 import { CardComponent } from '../../components/card/card.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -18,23 +18,26 @@ import { CommonModule } from '@angular/common';
     HeaderComponent,
     MatSidenavModule,
     CommonModule
-],
+  ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
 })
 export class MenuComponent {
   public AllMenus = input<Menu[]>([]);
+  public allWeeks = input<MenuWeek[]>([]);
   public menus: Menu[] = [];
   public snacks = input<MealViewModel[]>([]);
   public lunches = input<MealViewModel[]>([]);
   public calendar: MonthCalendar[] = [];
+  public monthSelected: MonthCalendar | null = null;
   public weeksSelected: DayCell[][] = [];
+  public weekSelected: DayCell[] = [];
 
   public select: 'menu' | 'database' = 'menu';
   public databaseType: 'snack' | 'lunch' = 'snack';
 
   constructor(
-    private MenuService: MenuService,
+    private menuService: MenuService,
     private calendarService: CalendarService,
     private router: Router
   ) {
@@ -43,23 +46,54 @@ export class MenuComponent {
   }
 
   private loadCalendar() {
-    this.calendar = this.calendarService.generateYearCalendar(2026);
-    this.calendar[0].selected = true;
+    this.calendar = this.calendarService.generateYearCalendar(2026, 0);
+    const month = new Date().getMonth();
+
+    this.calendar[month].selected = true;
+    this.selectMonth(this.calendar[month]);
   }
 
   public selectMonth(month: MonthCalendar) {
-      console.log(month);
+    this.monthSelected = month;
 
-      for (const m of this.calendar) {
-        m.selected = m.month === month.month ? true : false;
+    for (const m of this.calendar) {
+      m.selected = m.month === month.month ? true : false;
 
-        if (m.selected) {
-          this.weeksSelected = m.weeks;
-        }
-      }    
+      if (m.selected) {
+        this.weeksSelected = m.weeks;
+      }
+    }
   }
 
-  public addMealToMenu(meal: MealViewModel, day: 'mon' | 'tue' | 'wed' | 'thu' | 'fri', type: 'snack' | 'lunch') {
+  public selectWeek(week: DayCell[], numWeek: number) {
+    this.weekSelected = week;
+
+    const year = week[0].year;
+    const month = week[0].month;
+
+    const idDateWeek = this.calendarService.makeIdDateWeek(year, month, numWeek);
+
+    const simpleMenu = this.allWeeks().find((w) => w.id === idDateWeek);
+    const menu: Menu[] = [];
+
+    if (!!simpleMenu) {
+      for (const day of simpleMenu.days) {
+        menu.push(this.menuService.convertSimpleToMenu(day));   
+      }
+    }
+
+    this.menus = menu;
+  }
+
+  public backMonth() {
+    this.clearWeek();
+  }
+
+  private clearWeek() {
+    this.weekSelected = [];
+  }
+
+  public addMealToMenu(meal: MealViewModel, day: Day, type: 'snack' | 'lunch') {
     const menusUpdated = this.menus.map((m) => {
       if (m.day !== day) return m;
 
@@ -74,7 +108,7 @@ export class MenuComponent {
     if (menu) this.changeMenu(menu);
   }
 
-  public removeMealToMenu(meals: MealViewModel[], day: 'mon' | 'tue' | 'wed' | 'thu' | 'fri', type: 'snack' | 'lunch') {
+  public removeMealToMenu(meals: MealViewModel[], day: Day, type: 'snack' | 'lunch') {
     const menusUpdated = this.menus.map((m) => {
       if (m.day !== day) return m;
 
@@ -135,6 +169,6 @@ export class MenuComponent {
       snacks: snacksRequest,
     };
 
-    this.MenuService.updateItem(menu.id, menuRequest);
+    this.menuService.updateItem(menu.id, menuRequest);
   }
 }
