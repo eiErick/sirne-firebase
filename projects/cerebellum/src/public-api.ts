@@ -6,7 +6,7 @@ export * from './lib/cerebellum';
 
 // SERVICES
 export * from './lib/services/menu/menu.service';
-export * from './lib/services/meal/meal.service.service';
+export * from './lib/services/meal/meal.service';
 export * from './lib/services/settings/settings.service';
 export * from './lib/services/kiam/kiam.service';
 export * from './lib/services/snackbar/snackbar.service';
@@ -27,6 +27,9 @@ export * from './lib/models/blog.model';
 export * from './lib/models/menu.model';
 export * from './lib/models/task.model';
 export * from './lib/models/calendar.model';
+
+// TYPES
+export * from './lib/models/calendar.type';
 
 // UTILS
 export * from './lib/utils/Model.util';
