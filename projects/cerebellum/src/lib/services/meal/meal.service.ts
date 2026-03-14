@@ -19,8 +19,20 @@ export class MealService {
     return addDoc(this.itemsCollection, item);
   }
 
+  public setStorage(snacks: MealResponse[], lunches: MealResponse[]) {
+    localStorage.setItem('snacks', JSON.stringify(snacks));
+    localStorage.setItem('lunches', JSON.stringify(lunches));
+  }
+
   public getMeals(): Observable<MealResponse[]> {
     return collectionData(this.itemsCollection, { idField: 'id' }) as Observable<MealResponse[]>
+  }
+
+  public getStorage(): { snacks: MealResponse[], lunches: MealResponse[] } {
+    const snacks = JSON.parse(localStorage.getItem('snacks') ?? '[]');
+    const lunches = JSON.parse(localStorage.getItem('lunches') ?? '[]');
+
+    return { snacks, lunches };
   }
 
   public getMealId(id: number) {
@@ -38,9 +50,9 @@ export class MealService {
     return updateDoc(itemDoc, data);
   }
 
-  public deleteMeal(id: number) {
+  public deleteMeal(id: string) {
     console.log(id);
-    
+
     const itemDoc = doc(this.firestore, `meals/${id}`);
     return deleteDoc(itemDoc);
   }
