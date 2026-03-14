@@ -1,5 +1,7 @@
+import { IdDateWeek, Day } from "./calendar.type";
+
 export interface Menu {
-    day: 'mon' | 'tue' | 'wed' | 'thu' | 'fri';
+    day: Day;
     id: string;
     today: boolean;
     snacks: MealViewModel[];
@@ -7,13 +9,13 @@ export interface Menu {
 }
 
 export interface MenuRequest {
-    day: 'mon' | 'tue' | 'wed' | 'thu' | 'fri';
+    day: Day;
     snacks: MealRequestMenu[];
     lunches: MealRequestMenu[];
 }
 
 export interface MenuResponse {
-    day: 'mon' | 'tue' | 'wed' | 'thu' | 'fri';
+    day: Day;
     id: string;
     snacks: MealResponse[];
     lunches: MealResponse[];
@@ -38,7 +40,7 @@ export class MealViewModel {
     public glucose: boolean = true;
     public gluten: boolean = true;
     public likes: number = 0;
-    public id: number = 0;
+    public id: string = '';
     public type: 'snack' | 'lunch' = 'snack';
     public today: boolean = false;
 
@@ -67,7 +69,7 @@ export interface MealRequestMenu {
     glucose: boolean;
     gluten: boolean;
     likes: number;
-    id: number;
+    id: string;
     type: 'snack' | 'lunch';
 }
 
@@ -78,7 +80,22 @@ export interface MealResponse {
     glucose: boolean;
     gluten: boolean;
     likes: number;
-    id: number;
+    id: string;
     // objectId: string;
     type: 'snack' | 'lunch';
+}
+
+export interface SimpleMeal {
+    id: string;
+}
+
+export interface SimpleDayCell {
+    lunches: SimpleMeal[];
+    snacks: SimpleMeal[];
+    day: Day;
+}
+
+export interface MenuWeek {    
+    id: IdDateWeek;
+    days: SimpleDayCell[];
 }
