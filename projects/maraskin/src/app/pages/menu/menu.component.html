@@ -22,7 +22,7 @@
         <div class="container-header-week">
           <span class="material-symbols-outlined back" (click)="backMonth()">arrow_back_ios</span>
 
-          <span class="num-week">{{ numSelectedWeek }}° Semana</span>
+          <span class="num-week">{{ numSelectedWeek }}° Semana ({{ initialWeekDate | date }} - {{ endWeekDate | date }})</span>
         </div>
     
         <div class="container-week-cards">

@@ -34,6 +34,8 @@ export class MenuComponent {
   public weeksSelected: DayCell[][] = [];
   public weekSelected: DayCell[] = [];
   public numSelectedWeek: number = 0;
+  public initialWeekDate: Date = new Date();
+  public endWeekDate: Date = new Date();
 
   public select: 'menu' | 'database' = 'menu';
   public databaseType: 'snack' | 'lunch' = 'snack';
@@ -47,6 +49,7 @@ export class MenuComponent {
     effect(() => {
       this.menusWeeks = structuredClone(this.allWeeks());
     });
+
     this.loadCalendar();
   }
 
@@ -73,6 +76,9 @@ export class MenuComponent {
   public selectWeek(week: DayCell[], numWeek: number) {
     this.weekSelected = week;
     this.numSelectedWeek = numWeek + 1;
+
+    this.initialWeekDate = week[0].date;
+    this.endWeekDate = week[week.length - 1].date;
 
     const year = week[0].year;
     const month = week[0].month;
