@@ -2,8 +2,11 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { App } from '@capacitor/app';
+import { Capacitor } from '@capacitor/core';
 
-StatusBar.setOverlaysWebView({ overlay: false });
+if (Capacitor.getPlatform() !== 'web') {
+  StatusBar.setOverlaysWebView({ overlay: false });
+}
 
 @Component({
   selector: 'app-root',
@@ -23,12 +26,13 @@ export class AppComponent {
   public async initializeApp() {
     this.initTheme();
 
+    if (Capacitor.getPlatform() !== 'web') {
+      await App.addListener('appStateChange', async () => {
+        await StatusBar.setOverlaysWebView({ overlay: true });
+      });
 
-    await App.addListener('appStateChange', async () => {
       await StatusBar.setOverlaysWebView({ overlay: true });
-    });
-
-    await StatusBar.setOverlaysWebView({ overlay: true });
+    }
   }
 
   private initTheme() {
@@ -39,12 +43,18 @@ export class AppComponent {
 
       if (theme) {
         document.documentElement.classList.add('app-dark');
-        StatusBar.setBackgroundColor({ color: '#7662DA' });
-        StatusBar.setStyle({ style: Style.Dark });
+
+        if (Capacitor.getPlatform() !== 'web') {
+          StatusBar.setBackgroundColor({ color: '#7662DA' });
+          StatusBar.setStyle({ style: Style.Dark });
+        }
       } else {
         document.documentElement.classList.add('app-light');
-        StatusBar.setBackgroundColor({ color: '#423671' });
-        StatusBar.setStyle({ style: Style.Dark });
+
+        if (Capacitor.getPlatform() !== 'web') {
+          StatusBar.setBackgroundColor({ color: '#423671' });
+          StatusBar.setStyle({ style: Style.Dark });
+        }
       }
     } else {
       document.documentElement.classList.add('app-light');
