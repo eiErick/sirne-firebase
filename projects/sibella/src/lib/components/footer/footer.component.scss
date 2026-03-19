@@ -1,14 +1,15 @@
 .footer {
-  background-color: var(--navigation-color);
+  
 
   .center {
     display: flex;
     width: 100%;
     align-items: center;
+    justify-content: center;
 
     span {
-      color: var(--navigation-text-color);
-      margin: 30px;
+      color: rgb(141, 141, 141);
+      margin: 0px;
       text-align: start;
     }
   }

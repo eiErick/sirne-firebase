@@ -4,6 +4,7 @@
   display: flex;
   width: 100%;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .container {
@@ -12,6 +13,7 @@
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
 
     .cetepsLogo {
       margin-left: 20px;
