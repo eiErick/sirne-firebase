@@ -31,6 +31,10 @@
             (addSnack)="addMealToMenu($event, menu.day, 'snack')" (addLunch)="addMealToMenu($event, menu.day, 'lunch')"
             (removedSnack)="removeMealToMenu($event, menu.day, 'snack')"
             (removedLunch)="removeMealToMenu($event, menu.day, 'lunch')" (changedMenu)="changeMenu($event)" />
+          } @empty {
+            <div class="container-empty">
+              <button matButton="tonal" (click)="createWeek(idDateWeekSeleted)">Carregar semana</button>
+            </div>
           }
         </div>
       </div>

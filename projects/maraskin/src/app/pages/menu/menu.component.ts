@@ -8,6 +8,7 @@ import { HeaderComponent } from 'sibella';
 import { CalendarService } from 'cerebellum';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatAnchor } from "@angular/material/button";
 
 @Component({
   selector: 'app-menu',
@@ -17,8 +18,9 @@ import { CommonModule } from '@angular/common';
     MatButtonToggleModule,
     HeaderComponent,
     MatSidenavModule,
-    CommonModule
-  ],
+    CommonModule,
+    MatAnchor
+],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
 })
@@ -33,6 +35,7 @@ export class MenuComponent {
   public monthSelected: MonthCalendar | null = null;
   public weeksSelected: DayCell[][] = [];
   public weekSelected: DayCell[] = [];
+  public idDateWeekSeleted: IdDateWeek = "00-00-0000";
   public numSelectedWeek: number = 0;
   public initialWeekDate: Date = new Date();
   public endWeekDate: Date = new Date();
@@ -84,11 +87,13 @@ export class MenuComponent {
     const month = week[0].month;
 
     const idDateWeek = this.calendarService.makeIdDateWeek(year, month, numWeek);
+    this.idDateWeekSeleted = idDateWeek;
 
     const simpleMenu = this.allWeeks().find((w) => w.idDate === idDateWeek);
 
     if (!simpleMenu) {
-      this.createWeek(idDateWeek);
+      this.menus = [];
+      return;
     }
 
     const menu: Menu[] = [];
@@ -102,7 +107,7 @@ export class MenuComponent {
     this.menus = menu;
   }
 
-  private createWeek(idDateWeek: IdDateWeek) {
+  public createWeek(idDateWeek: IdDateWeek) {
     const snackEmpty = this.snacks().find((s) => s.name === "---");
     const lunchEmpty = this.lunches().find((l) => l.name === "---");
 
@@ -121,8 +126,12 @@ export class MenuComponent {
     ];
 
     const weekRequest: MenuWeekRequest = { days: days, idDate: idDateWeek };
+    console.log("create week");
 
-    this.menuService.addWeekMenu(weekRequest);
+    this.menuService.addWeekMenu(weekRequest).subscribe((res) => {
+      this.snackbar.showSuccess("Semana adicionanda com sucesso!");
+      this.backMonth();
+    });
   }
 
   public backMonth() {

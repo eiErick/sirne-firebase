@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { addDoc, collection, collectionData, deleteDoc, doc, docData, Firestore, updateDoc } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { MealViewModel, Menu, MenuWeekResponse, MenuWeekRequest, MenuWeekViewModel, SimpleDayCell } from '../../models/menu.model';
 import { MealService } from '../meal/meal.service';
 import { Mapper } from '../../utils/Model.util';
@@ -32,24 +32,24 @@ export class MenuService {
   }
 
   public addWeekMenu(item: MenuWeekRequest) {
-    return addDoc(this.itemsCollection, item);
+    return from(addDoc(this.itemsCollection, item));
   }
 
   public getItems(): Observable<MenuWeekResponse[]> {
     return collectionData(this.itemsCollection, { idField: 'id' }) as Observable<MenuWeekResponse[]>
   }
 
-//   const querySnapshot = await db
-//   .collection("users")
-//   .where("email", "==", "erick@email.com")
-//   .get();
+  //   const querySnapshot = await db
+  //   .collection("users")
+  //   .where("email", "==", "erick@email.com")
+  //   .get();
 
-// querySnapshot.forEach((doc) => {
-//   console.log(doc.id, doc.data());
-// });
+  // querySnapshot.forEach((doc) => {
+  //   console.log(doc.id, doc.data());
+  // });
 
   public convertSimpleToMenu(simpleDayMenu: SimpleDayCell, idDateWeek: IdDateWeek, id: string): Menu {
-    const { snacks, lunches } = this.mealService.getStorage();    
+    const { snacks, lunches } = this.mealService.getStorage();
 
     const menu: Menu = { day: simpleDayMenu.day, idDate: idDateWeek, lunches: [], snacks: [], today: false, id: id }
 
@@ -88,7 +88,7 @@ export class MenuService {
 
   public updateItem(id: string, data: Partial<MenuWeekRequest>) {
     console.log(data);
-    
+
     const itemDoc = doc(this.firestore, `menus/${id}`);
     return updateDoc(itemDoc, data);
   }
