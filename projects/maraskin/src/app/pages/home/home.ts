@@ -4,7 +4,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MenuComponent } from "../menu/menu.component";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { FormsModule } from "@angular/forms";
-import { Mapper, MealService, MealViewModel, Menu, MenuService, SimpleDayCell, MenuWeek } from 'cerebellum';
+import { Mapper, MealService, MealViewModel, Menu, MenuService, MenuWeekViewModel, MenuDayViewModel } from 'cerebellum';
 import { LunchComponent } from '../lunch/lunch.component';
 import { CommonModule } from '@angular/common';
 import { Navigate } from "../../components/navigate/navigate";
@@ -30,7 +30,7 @@ export class Home implements OnInit {
   public snacks: MealViewModel[] = [];
   public lunches: MealViewModel[] = [];
   public menus: Menu[] = [];
-  public allWeeks: MenuWeek[] = [];
+  public allWeeks: MenuWeekViewModel[] = [];
 
   constructor(
     private mealService: MealService,
@@ -40,8 +40,7 @@ export class Home implements OnInit {
 
   ngOnInit() {
     this.getMeals();
-    // this.getMenu();
-    this.getFake();
+    this.getMenu();
   }
 
   private getMeals() {
@@ -57,60 +56,60 @@ export class Home implements OnInit {
   }
 
   public getMenu() {
-    this.menuService.getItems().subscribe((res) => {
-      const menuViewModel: Menu[] = [];
+    this.menuService.getItems().subscribe((res) => {      
+      const menuWeeksViewModel: MenuWeekViewModel[] = [];
 
-      res.forEach((m) => {
-        const lunches = m.lunches.map((l) => Mapper.mapMatchingProperties(l, new MealViewModel()));
-        const snacks = m.snacks.map((s) => Mapper.mapMatchingProperties(s, new MealViewModel()));
+      res.forEach((r) => {
+        const menuWeekViewModel: MenuWeekViewModel = { idDate: r.idDate, id: r.id, days: [] };
 
-        const menu: Menu = {
-          day: m.day,
-          id: m.id,
-          lunches: lunches,
-          snacks: snacks,
-          today: false,
-        }
+        r.days.forEach(async (d) => {
+          let snacks = await Promise.all(
+            d.snacks.map(async (s) => {
+              let snack = this.mealService.getSnackById(s.id);
 
-        menuViewModel.push(menu);
+              if (!snack) {
+                // snack = await this.mealService.fetchSnackById(s.id); // fallback
+              }
+
+              return snack;
+            })
+          );
+
+          let lunches = await Promise.all(
+            d.lunches.map(async (l) => {
+              let lunch = this.mealService.getLunchById(l.id);
+
+              if (!lunch) {
+                // lunch = await this.mealService.fetchLunchById(l.id); // fallback
+              }
+
+              return lunch;
+            })
+          );
+
+          snacks = snacks === undefined ? [] : snacks;
+          lunches = lunches === undefined ? [] : lunches;
+
+          const menuDay: MenuDayViewModel = { day: d.day, lunches: lunches as MealViewModel[], snacks: snacks as MealViewModel[] }
+
+          menuWeekViewModel.days.push(menuDay);
+        });
+
+        menuWeeksViewModel.push(menuWeekViewModel);
       });
 
-      this.menus = this.organizeDays(menuViewModel);      
+      this.menuService.allWeeksMenus.set(menuWeeksViewModel);
+      this.allWeeks = menuWeeksViewModel;    
     });
   }
 
-  private getFake() {
-    const days: SimpleDayCell[] = [
-      { day: 'sun', lunches: [{id: "0PLHotbg544AytObwUEd"}], snacks: [{id: "0PLHotbg544AytObwUEd"}, {id: "0PLHotbg544AytObwUEd"}] },
-      { day: 'mon', lunches: [{id: "0PLHotbg544AytObwUEd"}], snacks: [{id: "0PLHotbg544AytObwUEd"}, {id: "0PLHotbg544AytObwUEd"}] },
-      { day: 'tue', lunches: [{id: "0PLHotbg544AytObwUEd"}], snacks: [{id: "0PLHotbg544AytObwUEd"}, {id: "0PLHotbg544AytObwUEd"}] },
-      { day: 'wed', lunches: [{id: "0PLHotbg544AytObwUEd"}], snacks: [{id: "0PLHotbg544AytObwUEd"}, {id: "0PLHotbg544AytObwUEd"}] },
-      { day: 'thu', lunches: [{id: "0PLHotbg544AytObwUEd"}], snacks: [{id: "0PLHotbg544AytObwUEd"}, {id: "0PLHotbg544AytObwUEd"}] },
-      { day: 'fri', lunches: [{id: "0PLHotbg544AytObwUEd"}], snacks: [{id: "0PLHotbg544AytObwUEd"}, {id: "0PLHotbg544AytObwUEd"}] },
-      { day: 'sat', lunches: [{id: "0PLHotbg544AytObwUEd"}], snacks: [{id: "0PLHotbg544AytObwUEd"}, {id: "0PLHotbg544AytObwUEd"}] },
-    ];
-    
-    const week: MenuWeek[] = [
-      { days: days, id: '2026-0-0'},
-      { days: days, id: '2026-0-1'},
-      { days: days, id: '2026-0-2'},
-      { days: days, id: '2026-0-3'},
-      { days: days, id: '2026-0-4'},
-      { days: days, id: '2026-0-5'},
-      { days: days, id: '2026-1-0'},
-      { days: days, id: '2026-2-0'},
-    ];
+  // private organizeDays(menu: Menu[]): Menu[] {
+  //   const daysOrder = ["mon", "tue", "wed", "thu", "fri"];
 
-    this.allWeeks = week;
-  }
-
-  private organizeDays(menu: Menu[]): Menu[] {
-    const daysOrder = ["mon", "tue", "wed", "thu", "fri"];
-
-    return menu.sort((a, b) => {
-      const dayAIndex = daysOrder.indexOf(a.day.toLowerCase());
-      const dayBIndex = daysOrder.indexOf(b.day.toLowerCase());
-      return dayAIndex - dayBIndex;
-    });
-  }
+  //   return menu.sort((a, b) => {
+  //     const dayAIndex = daysOrder.indexOf(a.day.toLowerCase());
+  //     const dayBIndex = daysOrder.indexOf(b.day.toLowerCase());
+  //     return dayAIndex - dayBIndex;
+  //   });
+  // }
 }

@@ -13,7 +13,7 @@
     @if (weekSelected.length === 0) {
       <div class="month-container">
         @for (week of weeksSelected; track $index) {
-          <span class="week" (click)="selectWeek(week, $index)">Semana {{ $index + 1 }}°</span>
+          <span class="week" (click)="selectWeek(week, $index)">{{ $index + 1 }}° Semana</span>
           <div class="line"></div>
         }
       </div>
@@ -22,7 +22,7 @@
         <div class="container-header-week">
           <span class="material-symbols-outlined back" (click)="backMonth()">arrow_back_ios</span>
 
-          <span class="num-week">Semana --</span>
+          <span class="num-week">{{ numSelectedWeek }}° Semana</span>
         </div>
     
         <div class="container-week-cards">

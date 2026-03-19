@@ -1,5 +1,5 @@
 import { Component, effect, input } from '@angular/core';
-import { DayCell, MealRequestMenu, MealViewModel, Menu, MenuRequest, MenuService, MonthCalendar, MenuWeek, Day } from 'cerebellum';
+import { DayCell, MealViewModel, Menu, MenuService, MonthCalendar, Day, SimpleMeal, SimpleMenuRequest, MenuWeekRequest, SimpleDayCell, SnackbarService, IdDateWeek, MenuWeekViewModel } from 'cerebellum';
 import { CardComponent } from '../../components/card/card.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -24,14 +24,16 @@ import { CommonModule } from '@angular/common';
 })
 export class MenuComponent {
   public AllMenus = input<Menu[]>([]);
-  public allWeeks = input<MenuWeek[]>([]);
+  public allWeeks = input<MenuWeekViewModel[]>([]);
   public menus: Menu[] = [];
+  public menusWeeks: MenuWeekViewModel[] = [];
   public snacks = input<MealViewModel[]>([]);
   public lunches = input<MealViewModel[]>([]);
   public calendar: MonthCalendar[] = [];
   public monthSelected: MonthCalendar | null = null;
   public weeksSelected: DayCell[][] = [];
   public weekSelected: DayCell[] = [];
+  public numSelectedWeek: number = 0;
 
   public select: 'menu' | 'database' = 'menu';
   public databaseType: 'snack' | 'lunch' = 'snack';
@@ -39,9 +41,12 @@ export class MenuComponent {
   constructor(
     private menuService: MenuService,
     private calendarService: CalendarService,
-    private router: Router
+    private snackbar: SnackbarService,
+    private router: Router,
   ) {
-    effect(() => this.menus = structuredClone(this.AllMenus()));
+    effect(() => {
+      this.menusWeeks = structuredClone(this.allWeeks());
+    });
     this.loadCalendar();
   }
 
@@ -67,22 +72,51 @@ export class MenuComponent {
 
   public selectWeek(week: DayCell[], numWeek: number) {
     this.weekSelected = week;
+    this.numSelectedWeek = numWeek + 1;
 
     const year = week[0].year;
     const month = week[0].month;
 
     const idDateWeek = this.calendarService.makeIdDateWeek(year, month, numWeek);
 
-    const simpleMenu = this.allWeeks().find((w) => w.id === idDateWeek);
+    const simpleMenu = this.allWeeks().find((w) => w.idDate === idDateWeek);
+
+    if (!simpleMenu) {
+      this.createWeek(idDateWeek);
+    }
+
     const menu: Menu[] = [];
 
     if (!!simpleMenu) {
       for (const day of simpleMenu.days) {
-        menu.push(this.menuService.convertSimpleToMenu(day));   
+        menu.push(this.menuService.convertSimpleToMenu(day, idDateWeek, simpleMenu.id));
       }
     }
 
     this.menus = menu;
+  }
+
+  private createWeek(idDateWeek: IdDateWeek) {
+    const snackEmpty = this.snacks().find((s) => s.name === "---");
+    const lunchEmpty = this.lunches().find((l) => l.name === "---");
+
+    if (!snackEmpty || !lunchEmpty) {
+      this.snackbar.showError('Erro ao carregar itens vazios!');
+    }
+
+    const days: SimpleDayCell[] = [
+      { day: 'sun', lunches: [{ id: lunchEmpty!.id }], snacks: [{ id: snackEmpty!.id }] },
+      { day: 'mon', lunches: [{ id: lunchEmpty!.id }], snacks: [{ id: snackEmpty!.id }] },
+      { day: 'tue', lunches: [{ id: lunchEmpty!.id }], snacks: [{ id: snackEmpty!.id }] },
+      { day: 'wed', lunches: [{ id: lunchEmpty!.id }], snacks: [{ id: snackEmpty!.id }] },
+      { day: 'thu', lunches: [{ id: lunchEmpty!.id }], snacks: [{ id: snackEmpty!.id }] },
+      { day: 'fri', lunches: [{ id: lunchEmpty!.id }], snacks: [{ id: snackEmpty!.id }] },
+      { day: 'sat', lunches: [{ id: lunchEmpty!.id }], snacks: [{ id: snackEmpty!.id }] },
+    ];
+
+    const weekRequest: MenuWeekRequest = { days: days, idDate: idDateWeek };
+
+    this.menuService.addWeekMenu(weekRequest);
   }
 
   public backMonth() {
@@ -128,47 +162,123 @@ export class MenuComponent {
   }
 
   public changeMenu(menu: Menu) {
-    console.log(menu);
-
-    const snacksRequest: MealRequestMenu[] = [];
-    const lunchesRequest: MealRequestMenu[] = [];
+    const snacksRequest: SimpleMeal[] = [];
+    const lunchesRequest: SimpleMeal[] = [];
 
     menu.snacks.forEach((s) => {
-      const snackRequest: MealRequestMenu = {
-        calories: s.calories,
-        glucose: s.glucose,
-        gluten: s.gluten,
-        lactose: s.lactose,
-        name: s.name,
-        type: s.type,
-        id: s.id,
-        likes: s.likes
-      }
-
+      const snackRequest: SimpleMeal = { id: s.id };
       snacksRequest.push(snackRequest);
     });
 
-    menu.lunches.forEach((s) => {
-      const lunchRequest: MealRequestMenu = {
-        calories: s.calories,
-        glucose: s.glucose,
-        gluten: s.gluten,
-        lactose: s.lactose,
-        name: s.name,
-        type: s.type,
-        id: s.id,
-        likes: s.likes
-      }
-
+    menu.lunches.forEach((l) => {
+      const lunchRequest: SimpleMeal = { id: l.id };
       lunchesRequest.push(lunchRequest);
     });
 
-    const menuRequest: MenuRequest = {
+    // const snacksRequest: MealRequestMenu[] = [];
+    // const lunchesRequest: MealRequestMenu[] = [];
+
+    // menu.snacks.forEach((s) => {
+    //   const snackRequest: MealRequestMenu = {
+    //     calories: s.calories,
+    //     glucose: s.glucose,
+    //     gluten: s.gluten,
+    //     lactose: s.lactose,
+    //     name: s.name,
+    //     type: s.type,
+    //     id: s.id,
+    //     likes: s.likes
+    //   }
+
+    //   snacksRequest.push(snackRequest);
+    // });
+
+    // menu.lunches.forEach((s) => {
+    //   const lunchRequest: MealRequestMenu = {
+    //     calories: s.calories,
+    //     glucose: s.glucose,
+    //     gluten: s.gluten,
+    //     lactose: s.lactose,
+    //     name: s.name,
+    //     type: s.type,
+    //     id: s.id,
+    //     likes: s.likes
+    //   }
+
+    //   lunchesRequest.push(lunchRequest);
+    // });
+
+    // const menuRequest: MenuRequest = {
+    //   day: menu.day,
+    //   lunches: lunchesRequest,
+    //   snacks: snacksRequest,
+    // };    
+
+    const weekSelected = this.allWeeks().find((w) => w.idDate === menu.idDate);
+    
+    
+    const daysOfweekRequest: SimpleDayCell[] = [];
+    
+    if (!weekSelected) {
+      return;
+    }
+
+    const simpleMenuRequest: SimpleMenuRequest = {
       day: menu.day,
       lunches: lunchesRequest,
       snacks: snacksRequest,
-    };
+    }
 
-    this.menuService.updateItem(menu.id, menuRequest);
+    for (const day of weekSelected.days) {
+      if (day.day === menu.day) {
+        const dayRequest: SimpleDayCell = {
+          day: day.day,
+          snacks: simpleMenuRequest.snacks,
+          lunches: simpleMenuRequest.lunches
+        }
+
+        daysOfweekRequest.push(dayRequest);
+
+        continue;
+      }
+
+      console.log(day);
+      
+
+      const snacksDayRequest: SimpleMeal[] = [];
+      const lunchesDayRequest: SimpleMeal[] = [];
+
+      day.snacks.forEach((s) => {
+        const snackRequest: SimpleMeal = { id: s.id };
+        snacksDayRequest.push(snackRequest);
+      });
+
+      day.lunches.forEach((l) => {
+        const lunchRequest: SimpleMeal = { id: l.id };
+        lunchesDayRequest.push(lunchRequest);
+      });
+
+      const dayRequest: SimpleDayCell = {
+        day: day.day,
+        snacks: snacksDayRequest,
+        lunches: lunchesDayRequest,
+      }
+
+      daysOfweekRequest.push(dayRequest);
+    }
+
+    console.log(daysOfweekRequest);
+    
+
+    const simpleWeekRequest: MenuWeekRequest = {
+      days: daysOfweekRequest,
+      idDate: weekSelected.idDate
+    }
+
+    console.log(simpleWeekRequest);
+    
+    console.log(menu.id);
+    
+    this.menuService.updateItem(menu.id, simpleWeekRequest);
   }
 }

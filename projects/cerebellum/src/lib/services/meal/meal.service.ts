@@ -8,7 +8,8 @@ import { MealRequest, MealResponse } from '../../models/menu.model';
 })
 export class MealService {
   private itemsCollection;
-
+  private storageCache: StorageMeal | null = null;
+  
   constructor(
     private firestore: Firestore
   ) {
@@ -28,11 +29,36 @@ export class MealService {
     return collectionData(this.itemsCollection, { idField: 'id' }) as Observable<MealResponse[]>
   }
 
-  public getStorage(): { snacks: MealResponse[], lunches: MealResponse[] } {
-    const snacks = JSON.parse(localStorage.getItem('snacks') ?? '[]');
-    const lunches = JSON.parse(localStorage.getItem('lunches') ?? '[]');
+  public getStorage(): StorageMeal {
+    if (!this.storageCache) {
+      this.loadFromLocalStorage();
+    }
+    return this.storageCache!;
+  }
 
-    return { snacks, lunches };
+  private loadFromLocalStorage(): void {
+    const snacksArray: MealResponse[] = JSON.parse(localStorage.getItem('snacks') ?? '[]');
+    const lunchesArray: MealResponse[] = JSON.parse(localStorage.getItem('lunches') ?? '[]');
+
+    const snacks = this.toDictionary(snacksArray);
+    const lunches = this.toDictionary(lunchesArray);
+
+    this.storageCache = { snacks, lunches };
+  }
+
+  private toDictionary(arr: MealResponse[]): Record<string, MealResponse> {
+    return arr.reduce((acc, item) => {
+      acc[item.id] = item;
+      return acc;
+    }, {} as Record<string, MealResponse>);
+  }
+
+  public getSnackById(id: string): MealResponse | undefined {
+    return this.getStorage().snacks[id];
+  }
+
+  public getLunchById(id: string): MealResponse | undefined {
+    return this.getStorage().lunches[id];
   }
 
   public getMealId(id: number) {
@@ -57,3 +83,8 @@ export class MealService {
     return deleteDoc(itemDoc);
   }
 }
+
+type StorageMeal = {
+  snacks: Record<string, MealResponse>;
+  lunches: Record<string, MealResponse>;
+};
