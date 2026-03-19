@@ -65,6 +65,8 @@ export class MenuComponent {
   }
 
   public selectMonth(month: MonthCalendar) {
+    this.backMonth();
+    
     this.monthSelected = month;
 
     for (const m of this.calendar) {
