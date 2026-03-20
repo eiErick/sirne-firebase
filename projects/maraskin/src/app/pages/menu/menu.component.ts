@@ -1,5 +1,5 @@
 import { Component, effect, input } from '@angular/core';
-import { DayCell, MealViewModel, Menu, MenuService, MonthCalendar, Day, SimpleMeal, SimpleMenuRequest, MenuWeekRequest, SimpleDayCell, SnackbarService, IdDateWeek, MenuWeekViewModel } from 'cerebellum';
+import { DayCell, MealViewModel, Menu, MenuService, MonthCalendar, Day, SimpleMeal, SimpleMenuRequest, MenuWeekRequest, SimpleDayCell, SnackbarService, IdDateWeek, MenuWeekViewModel, CalendarOptions } from 'cerebellum';
 import { CardComponent } from '../../components/card/card.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -57,7 +57,12 @@ export class MenuComponent {
   }
 
   private loadCalendar() {
-    this.calendar = this.calendarService.generateYearCalendar(2026, 0);
+    const calendarOptions: CalendarOptions = {
+      hiddenWeekdays: [0, 6],
+      startOfWeek: 1
+    }
+
+    this.calendar = this.calendarService.generateYearCalendar(2026, calendarOptions);
     const month = new Date().getMonth();
 
     this.calendar[month].selected = true;
@@ -118,13 +123,13 @@ export class MenuComponent {
     }
 
     const days: SimpleDayCell[] = [
-      { day: 'sun', lunches: [{ id: lunchEmpty!.id }], snacks: [{ id: snackEmpty!.id }] },
+      // { day: 'sun', lunches: [{ id: lunchEmpty!.id }], snacks: [{ id: snackEmpty!.id }] },
       { day: 'mon', lunches: [{ id: lunchEmpty!.id }], snacks: [{ id: snackEmpty!.id }] },
       { day: 'tue', lunches: [{ id: lunchEmpty!.id }], snacks: [{ id: snackEmpty!.id }] },
       { day: 'wed', lunches: [{ id: lunchEmpty!.id }], snacks: [{ id: snackEmpty!.id }] },
       { day: 'thu', lunches: [{ id: lunchEmpty!.id }], snacks: [{ id: snackEmpty!.id }] },
       { day: 'fri', lunches: [{ id: lunchEmpty!.id }], snacks: [{ id: snackEmpty!.id }] },
-      { day: 'sat', lunches: [{ id: lunchEmpty!.id }], snacks: [{ id: snackEmpty!.id }] },
+      // { day: 'sat', lunches: [{ id: lunchEmpty!.id }], snacks: [{ id: snackEmpty!.id }] },
     ];
 
     const weekRequest: MenuWeekRequest = { days: days, idDate: idDateWeek };
