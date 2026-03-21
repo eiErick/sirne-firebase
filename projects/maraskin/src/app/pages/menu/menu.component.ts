@@ -1,5 +1,5 @@
 import { Component, effect, input } from '@angular/core';
-import { DayCell, MealViewModel, Menu, MenuService, MonthCalendar, Day, SimpleMeal, SimpleMenuRequest, MenuWeekRequest, SimpleDayCell, SnackbarService, IdDateWeek, MenuWeekViewModel, CalendarOptions } from 'cerebellum';
+import { DayCell, MealViewModel, Menu, MenuService, MonthCalendar, Day, SimpleMeal, SimpleMenuRequest, MenuWeekRequest, SimpleDayCell, SnackbarService, IdDateWeek, MenuWeekViewModel, CalendarOptions, selectableWeekViewModel } from 'cerebellum';
 import { CardComponent } from '../../components/card/card.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -9,6 +9,7 @@ import { CalendarService } from 'cerebellum';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatAnchor } from "@angular/material/button";
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-menu',
@@ -19,8 +20,9 @@ import { MatAnchor } from "@angular/material/button";
     HeaderComponent,
     MatSidenavModule,
     CommonModule,
-    MatAnchor
-],
+    MatAnchor,
+    MatSelectModule
+  ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
 })
@@ -37,8 +39,10 @@ export class MenuComponent {
   public weekSelected: DayCell[] = [];
   public idDateWeekSeleted: IdDateWeek = "00-00-0000";
   public numSelectedWeek: number = 0;
+  public showSidenav = true;
   public initialWeekDate: Date = new Date();
   public endWeekDate: Date = new Date();
+  public selectableWeeks: selectableWeekViewModel[] = [];
 
   public select: 'menu' | 'database' = 'menu';
   public databaseType: 'snack' | 'lunch' = 'snack';
@@ -51,6 +55,7 @@ export class MenuComponent {
   ) {
     effect(() => {
       this.menusWeeks = structuredClone(this.allWeeks());
+      this.loadSelectableWeeks();
     });
 
     this.loadCalendar();
@@ -69,9 +74,20 @@ export class MenuComponent {
     this.selectMonth(this.calendar[month]);
   }
 
+  private loadSelectableWeeks() {
+    for (const week of this.allWeeks()) {
+      const selectable: selectableWeekViewModel = {
+        id: week.idDate,
+        date: this.calendarService.idDateWeekToDate(week.idDate),
+      }
+
+      this.selectableWeeks.push(selectable);
+    }
+  }
+
   public selectMonth(month: MonthCalendar) {
     this.backMonth();
-    
+
     this.monthSelected = month;
 
     for (const m of this.calendar) {
@@ -112,6 +128,16 @@ export class MenuComponent {
     }
 
     this.menus = menu;
+  }
+
+  public defineWeek(event: any) {
+    const idDateWeek = event.value;
+
+    const week = this.allWeeks().find((w) => w.idDate === idDateWeek);
+
+    if (week) {
+      this.menuService.defineWeek(week);
+    }
   }
 
   public createWeek(idDateWeek: IdDateWeek) {
@@ -237,10 +263,10 @@ export class MenuComponent {
     // };    
 
     const weekSelected = this.allWeeks().find((w) => w.idDate === menu.idDate);
-    
-    
+
+
     const daysOfweekRequest: SimpleDayCell[] = [];
-    
+
     if (!weekSelected) {
       return;
     }
@@ -265,7 +291,7 @@ export class MenuComponent {
       }
 
       console.log(day);
-      
+
 
       const snacksDayRequest: SimpleMeal[] = [];
       const lunchesDayRequest: SimpleMeal[] = [];
@@ -290,7 +316,7 @@ export class MenuComponent {
     }
 
     console.log(daysOfweekRequest);
-    
+
 
     const simpleWeekRequest: MenuWeekRequest = {
       days: daysOfweekRequest,
@@ -298,9 +324,9 @@ export class MenuComponent {
     }
 
     console.log(simpleWeekRequest);
-    
+
     console.log(menu.id);
-    
+
     this.menuService.updateItem(menu.id, simpleWeekRequest);
   }
 }

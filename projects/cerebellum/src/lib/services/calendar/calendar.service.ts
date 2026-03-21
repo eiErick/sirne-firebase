@@ -109,4 +109,18 @@ export class CalendarService {
             selected: false,
         };
     }
+
+    public idDateWeekToDate(id: IdDateWeek): Date {
+        const [year, month, week] = id.split("-").map(Number);
+        const firstDay = new Date(year, month - 1, 1);
+        const dayOfWeek = firstDay.getDay();
+        const offset = (dayOfWeek === 0 ? -6 : 1 - dayOfWeek);
+        const firstMonday = new Date(firstDay);
+        firstMonday.setDate(firstDay.getDate() + offset);
+
+        const result = new Date(firstMonday);
+        result.setDate(firstMonday.getDate() + (week - 1) * 7);
+
+        return result;
+    }
 }

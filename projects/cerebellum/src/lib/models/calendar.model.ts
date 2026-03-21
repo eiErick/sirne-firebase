@@ -1,3 +1,5 @@
+import { IdDateWeek } from "./calendar.type";
+
 export interface DayCell {
     date: Date;
     year: number;
@@ -13,4 +15,9 @@ export interface MonthCalendar {
     monthName: string;
     weeks: DayCell[][];
     selected: boolean;
+}
+
+export interface selectableWeekViewModel {
+    id: IdDateWeek;
+    date: Date;
 }

@@ -1,7 +1,7 @@
 <lib-header title="CETEPS" (settings)="openSettings()" />
 
-<mat-drawer-container class="container">
-  <mat-drawer class="side-bar-container" mode="side" opened>
+<mat-drawer-container class="container" autosize>
+  <mat-drawer #drawer class="side-bar-container" mode="side">
     @for (month of calendar; track $index) {
       <div class="month" [ngClass]="{'selected': month.selected}" (click)="selectMonth(month)">
         <span class="name">{{ month.monthName }}</span>
@@ -11,6 +11,18 @@
   
   <mat-drawer-content>
     @if (weekSelected.length === 0) {
+      <div class="container-header-month">
+        <span (click)="drawer.toggle()" class="material-symbols-outlined dock">dock_to_right</span>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Semana ativa</mat-label>
+          <mat-select (selectionChange)="defineWeek($event)">
+            @for (week of selectableWeeks; track week) {
+              <mat-option [value]="week.id">{{ week.date | date }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
       <div class="month-container">
         @for (week of weeksSelected; track $index) {
           <span class="week" (click)="selectWeek(week, $index)">{{ $index + 1 }}° Semana</span>

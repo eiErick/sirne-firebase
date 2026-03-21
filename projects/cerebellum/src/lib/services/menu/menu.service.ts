@@ -22,6 +22,7 @@ export interface Item {
 })
 export class MenuService {
   private itemsCollection;
+  private weekCollection;
   public allWeeksMenus = signal<MenuWeekViewModel[]>([]);
 
   constructor(
@@ -29,10 +30,15 @@ export class MenuService {
     private mealService: MealService,
   ) {
     this.itemsCollection = collection(this.firestore, 'menus');
+    this.weekCollection = collection(this.firestore, 'week');
   }
 
   public addWeekMenu(item: MenuWeekRequest) {
     return from(addDoc(this.itemsCollection, item));
+  }
+
+  public defineWeek(week: MenuWeekViewModel) {
+    return from(addDoc(this.weekCollection, week));
   }
 
   public getItems(): Observable<MenuWeekResponse[]> {
