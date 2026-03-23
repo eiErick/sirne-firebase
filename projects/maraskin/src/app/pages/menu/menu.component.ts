@@ -43,6 +43,9 @@ export class MenuComponent {
   public initialWeekDate: Date = new Date();
   public endWeekDate: Date = new Date();
   public selectableWeeks: selectableWeekViewModel[] = [];
+  public oldWeekId: string = '';
+  public activeWeek: string = '';
+  public loadingWeekActive: boolean = false;
 
   public select: 'menu' | 'database' = 'menu';
   public databaseType: 'snack' | 'lunch' = 'snack';
@@ -59,6 +62,7 @@ export class MenuComponent {
     });
 
     this.loadCalendar();
+    this.loadSelectedWeek();
   }
 
   private loadCalendar() {
@@ -72,6 +76,22 @@ export class MenuComponent {
 
     this.calendar[month].selected = true;
     this.selectMonth(this.calendar[month]);
+  }
+
+  private loadSelectedWeek() {
+    this.loadingWeekActive = true;
+
+    this.menuService.getWeek().subscribe((res) => {
+      this.loadingWeekActive = false;
+
+      if (res.length == 0) {
+        return;
+      }
+      
+      const week = res[0];
+      this.activeWeek = week.idDate;
+      this.oldWeekId = week.id;      
+    })
   }
 
   private loadSelectableWeeks() {
@@ -136,9 +156,23 @@ export class MenuComponent {
     const week = this.allWeeks().find((w) => w.idDate === idDateWeek);
 
     if (week) {
-      this.menuService.defineWeek(week);
+      week.id = this.oldWeekId;
+
+      this.menuService.defineWeek(week).subscribe({
+        next: (res) => {
+          this.snackbar.showSuccess("Menu alterado com sucesso!");
+          // this.storageWeekSelected(idDateWeek);
+        },
+        error: (err) => {
+          this.snackbar.showError("Erro ao alterar o menu!");
+        }
+      });
     }
   }
+
+  // private storageWeekSelected(idDateWeek: IdDateWeek) {
+  //   localStorage.setItem('week', idDateWeek);
+  // }
 
   public createWeek(idDateWeek: IdDateWeek) {
     const snackEmpty = this.snacks().find((s) => s.name === "---");

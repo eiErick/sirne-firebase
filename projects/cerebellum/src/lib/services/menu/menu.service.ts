@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { addDoc, collection, collectionData, deleteDoc, doc, docData, Firestore, updateDoc } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, deleteDoc, doc, docData, Firestore, setDoc, updateDoc } from '@angular/fire/firestore';
 import { from, Observable } from 'rxjs';
 import { MealViewModel, Menu, MenuWeekResponse, MenuWeekRequest, MenuWeekViewModel, SimpleDayCell } from '../../models/menu.model';
 import { MealService } from '../meal/meal.service';
@@ -37,8 +37,13 @@ export class MenuService {
     return from(addDoc(this.itemsCollection, item));
   }
 
-  public defineWeek(week: MenuWeekViewModel) {
-    return from(addDoc(this.weekCollection, week));
+  public defineWeek(week: MenuWeekViewModel): Observable<any> {
+    const weekRef = doc(this.weekCollection, week.id);
+    return from(setDoc(weekRef, week));
+  }
+
+  public getWeek(): Observable<MenuWeekViewModel[]> {
+    return collectionData(this.weekCollection, { idField: 'id' }) as Observable<any>
   }
 
   public getItems(): Observable<MenuWeekResponse[]> {

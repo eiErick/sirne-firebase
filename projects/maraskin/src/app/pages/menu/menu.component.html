@@ -16,7 +16,7 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Semana ativa</mat-label>
-          <mat-select (selectionChange)="defineWeek($event)">
+          <mat-select [disabled]="loadingWeekActive" (selectionChange)="defineWeek($event)" [value]="activeWeek">
             @for (week of selectableWeeks; track week) {
               <mat-option [value]="week.id">{{ week.date | date }}</mat-option>
             }
