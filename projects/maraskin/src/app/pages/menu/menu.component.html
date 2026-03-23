@@ -1,7 +1,7 @@
 <lib-header title="CETEPS" (settings)="openSettings()" />
 
 <mat-drawer-container class="container" autosize>
-  <mat-drawer #drawer class="side-bar-container" mode="side">
+  <mat-drawer [opened]="true" #drawer class="side-bar-container" mode="side">
     @for (month of calendar; track $index) {
       <div class="month" [ngClass]="{'selected': month.selected}" (click)="selectMonth(month)">
         <span class="name">{{ month.monthName }}</span>
