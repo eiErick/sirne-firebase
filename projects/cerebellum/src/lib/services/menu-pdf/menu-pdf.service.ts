@@ -91,26 +91,19 @@ export class CardapioPdfService {
     doc.setFont('helvetica', 'bold');
     doc.text('ALMOÇO', 14, lunchStartY);
 
-    // Cabeçalho com célula mesclada "SEGUNDA-FEIRA À SEXTA-FEIRA"
-    // jsPDF-AutoTable suporta colspan via objeto na head
     const lunchHead = [
-      [
-        { content: 'SEMANA', rowSpan: 1, styles: { halign: 'center' as const, fontStyle: 'bold' as const } },
-        { content: 'SEGUNDA-FEIRA À SEXTA-FEIRA', colSpan: 5, styles: { halign: 'center' as const, fontStyle: 'bold' as const } },
-      ]
+      ['SEMANA', ...this.WEEKDAYS.map(d => this.DAY_LABELS[d])]
     ];
 
     const lunchBody = weeks.map(week => {
       const weekLabel = this.getWeekLabel(week.idDate);
-
-      // Pega todos os almoços de qualquer dia da semana (são iguais seg-sex)
-      const anyDay = week.days.find(d => this.WEEKDAYS.includes(d.day));
-      const lunches = anyDay?.lunches?.filter(l => l?.name?.trim()) ?? [];
-      const lunchText = lunches.map(l => l.name).join(', ') || '-';
-
       return [
-        { content: weekLabel, styles: { fontStyle: 'bold' as const, halign: 'center' as const } },
-        { content: lunchText, colSpan: 5, styles: { halign: 'left' as const } },
+        weekLabel,
+        ...this.WEEKDAYS.map(day => {
+          const dayData = week.days.find(d => d.day === day);
+          const lunches = dayData?.lunches?.filter(l => l?.name?.trim()) ?? [];
+          return lunches.map(l => l.name).join('\n') || '-';
+        }),
       ];
     });
 
@@ -122,14 +115,16 @@ export class CardapioPdfService {
         fontSize: 8,
         cellPadding: 3,
         valign: 'middle',
+        halign: 'center',
       },
       headStyles: {
         fillColor: [240, 240, 240],
         textColor: 0,
         fontStyle: 'bold',
+        halign: 'center',
       },
       columnStyles: {
-        0: { cellWidth: 28 },
+        0: { cellWidth: 28, fontStyle: 'bold', halign: 'center' },
       },
       theme: 'grid',
     });
