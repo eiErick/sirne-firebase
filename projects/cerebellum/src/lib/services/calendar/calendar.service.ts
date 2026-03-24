@@ -64,11 +64,22 @@ export class CalendarService {
 
         const weeks: DayCell[][] = [];
 
-        let start = new Date(firstOfMonth.getFullYear(), firstOfMonth.getMonth(), firstOfMonth.getDate());
+        let start = new Date(firstOfMonth);
+
+        // Descobre até qual dia o mês ANTERIOR já "emprestou"
+        // para não repetir esses dias no mês atual
+        const prevMonthLastDay = this.getLastBorrowedDayFromPrevMonth(
+            year, monthIndex, startOfWeek, endOfWeek, hiddenWeekdays
+        );
+
+        // Pula os dias que já foram emprestados pelo mês anterior
+        if (prevMonthLastDay && start <= prevMonthLastDay) {
+            start = this.addDays(prevMonthLastDay, 1);
+        }
 
         while (start <= lastOfMonth) {
             const week: DayCell[] = [];
-            let d = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+            let d = new Date(start);
 
             while (true) {
                 const inMonth = (d.getFullYear() === year && d.getMonth() === monthIndex);
@@ -77,7 +88,7 @@ export class CalendarService {
 
                 if (visible) {
                     week.push({
-                        date: new Date(d.getFullYear(), d.getMonth(), d.getDate()),
+                        date: new Date(d),
                         year: d.getFullYear(),
                         month: d.getMonth(),
                         day: d.getDate(),
@@ -86,19 +97,17 @@ export class CalendarService {
                     });
                 }
 
-                if (dayOfWeek === endOfWeek) {
-                    d = this.addDays(d, 1);
-                    break;
-                }
-
+                const reachedEndOfWeek = dayOfWeek === endOfWeek;
                 d = this.addDays(d, 1);
+
+                if (reachedEndOfWeek) break;
             }
 
             if (week.length > 0) {
                 weeks.push(week);
             }
 
-            start = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+            start = new Date(d);
         }
 
         return {
@@ -108,6 +117,42 @@ export class CalendarService {
             weeks,
             selected: false,
         };
+    }
+
+    /**
+     * Retorna o último dia que o mês ANTERIOR "emprestou" para completar
+     * sua última semana, ou null se não houve empréstimo.
+     */
+    private getLastBorrowedDayFromPrevMonth(
+        year: number,
+        monthIndex: number,
+        startOfWeek: number,
+        endOfWeek: number,
+        hiddenWeekdays: number[]
+    ): Date | null {
+        // Mês anterior
+        const prevMonthIndex = monthIndex === 0 ? 11 : monthIndex - 1;
+        const prevYear = monthIndex === 0 ? year - 1 : year;
+
+        const lastOfPrevMonth = new Date(prevYear, prevMonthIndex + 1, 0);
+        const lastDayOfWeek = lastOfPrevMonth.getDay();
+
+        // Se o último dia do mês anterior já é o fim de semana, não há empréstimo
+        if (lastDayOfWeek === endOfWeek) return null;
+
+        // Avança do último dia do mês anterior até o fim da semana
+        let d = new Date(lastOfPrevMonth);
+        while (d.getDay() !== endOfWeek) {
+            d = this.addDays(d, 1);
+            // Se ainda estamos no mês anterior, não há empréstimo
+            if (d.getMonth() === prevMonthIndex && d.getFullYear() === prevYear) continue;
+        }
+
+        // Se d ainda é do mês anterior, sem empréstimo
+        if (d.getFullYear() === prevYear && d.getMonth() === prevMonthIndex) return null;
+
+        // Retorna o último dia emprestado (que pertence ao mês atual)
+        return d;
     }
 
     public idDateWeekToDate(id: IdDateWeek): Date {
