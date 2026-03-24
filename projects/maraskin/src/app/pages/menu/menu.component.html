@@ -14,14 +14,21 @@
       <div class="container-header-month">
         <span (click)="drawer.toggle()" class="material-symbols-outlined dock">dock_to_right</span>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Semana ativa</mat-label>
-          <mat-select [disabled]="loadingWeekActive" (selectionChange)="defineWeek($event)" [value]="activeWeek">
-            @for (week of selectableWeeks; track week) {
-              <mat-option [value]="week.id">{{ week.date | date }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+        <div class="right">
+          <button class="export" matButton="text" (click)="exportarPdf()">
+            Exportar em PDF
+            <!-- <span (click)="exportarPdf()" class="material-symbols-outlined">file_export</span> -->
+          </button>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Semana ativa</mat-label>
+            <mat-select [disabled]="loadingWeekActive" (selectionChange)="defineWeek($event)" [value]="activeWeek">
+              @for (week of selectableWeeks; track week) {
+                <mat-option [value]="week.id">{{ week.date | date }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
       <div class="month-container">
         @for (week of weeksSelected; track $index) {

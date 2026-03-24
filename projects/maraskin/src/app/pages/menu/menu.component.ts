@@ -1,5 +1,5 @@
 import { Component, effect, input } from '@angular/core';
-import { DayCell, MealViewModel, Menu, MenuService, MonthCalendar, Day, SimpleMeal, SimpleMenuRequest, MenuWeekRequest, SimpleDayCell, SnackbarService, IdDateWeek, MenuWeekViewModel, CalendarOptions, selectableWeekViewModel } from 'cerebellum';
+import { DayCell, MealViewModel, Menu, MenuService, MonthCalendar, Day, SimpleMeal, SimpleMenuRequest, MenuWeekRequest, SimpleDayCell, SnackbarService, IdDateWeek, MenuWeekViewModel, CalendarOptions, selectableWeekViewModel, CardapioPdfService } from 'cerebellum';
 import { CardComponent } from '../../components/card/card.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatAnchor } from "@angular/material/button";
 import { MatSelectModule } from '@angular/material/select';
+import { CdkAriaLive } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-menu',
@@ -21,8 +22,9 @@ import { MatSelectModule } from '@angular/material/select';
     MatSidenavModule,
     CommonModule,
     MatAnchor,
-    MatSelectModule
-  ],
+    MatSelectModule,
+    CdkAriaLive
+],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
 })
@@ -55,6 +57,7 @@ export class MenuComponent {
     private calendarService: CalendarService,
     private snackbar: SnackbarService,
     private router: Router,
+    private pdfService: CardapioPdfService
   ) {
     effect(() => {
       this.menusWeeks = structuredClone(this.allWeeks());
@@ -87,10 +90,10 @@ export class MenuComponent {
       if (res.length == 0) {
         return;
       }
-      
+
       const week = res[0];
       this.activeWeek = week.idDate;
-      this.oldWeekId = week.id;      
+      this.oldWeekId = week.id;
     })
   }
 
@@ -362,5 +365,10 @@ export class MenuComponent {
     console.log(menu.id);
 
     this.menuService.updateItem(menu.id, simpleWeekRequest);
+  }
+
+  public exportarPdf(): void {
+    // Seus dados existentes, sem nenhuma transformação
+    this.pdfService.generatePdf(this.allWeeks(), 'CARDÁPIO MENSAL (28/7 À 29/8/2025)');
   }
 }

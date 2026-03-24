@@ -12,6 +12,7 @@ export * from './lib/services/kiam/kiam.service';
 export * from './lib/services/snackbar/snackbar.service';
 export * from './lib/services/pwa/plataform.service';
 export * from './lib/services/calendar/calendar.service';
+export * from './lib/services/menu-pdf/menu-pdf.service'
 
 // GUARDS
 export * from './lib/guards/offline-guard';
@@ -27,6 +28,7 @@ export * from './lib/models/blog.model';
 export * from './lib/models/menu.model';
 export * from './lib/models/task.model';
 export * from './lib/models/calendar.model';
+export * from './lib/models/menu-pdf.model';
 
 // TYPES
 export * from './lib/models/calendar.type';
